@@ -1,0 +1,10 @@
+doctype html
+html
+  head
+    = render partial: "layouts/head" 
+  body
+    = render partial: "layouts/header" 
+    .container
+      h1 = yield :title
+      = render partial: "layouts/flash" 
+      = yield
