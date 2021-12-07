@@ -5,3 +5,18 @@ ul.shop_profile
   li= "営業時間：#{@shop.business_hour}"
   li= "店舗住所：#{@shop.address}"
 
+  = link_to  "編集する", edit_shop_path(@shop)
+h3
+  | メニュー一覧
+
+- @shop.menus.each do |menu|
+  
+  ul.menu-profile
+    li= "メニューID：#{menu.id}"
+    li
+      | メニュー名：
+      = link_to "#{menu.name}", menu_path(menu)
+    / li= "価格：#{menu.price}"
+    / li= "評価：#{menu.evaluation}"
+
+
