@@ -1,0 +1,13 @@
+- provide :title, "「#{@menu.name}」のメニュー情報"  
+
+ul.menu_profile
+  li= "メニューID：#{@menu.id}"
+  li 
+    | 店舗名： 
+    = link_to "#{@menu.shop.name}", shop_path(@menu.shop)
+  li= "メニュー名：#{@menu.name}"
+  li= "価格：#{@menu.price}"
+  li= "評価：#{@menu.evaluation}"
+
+  = link_to  "編集する", edit_menu_path(@menu) 
+
