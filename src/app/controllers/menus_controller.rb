@@ -4,7 +4,11 @@ class MenusController < ApplicationController
     @menus = Menu.all
   end
 
-  def show; end
+  def show
+    @users = User.all
+    @comment = Comment.new
+    @comments = @menu.comments.order(created_at: :desc)
+  end
 
   def new
     @menu = Menu.new

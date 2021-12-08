@@ -1,5 +1,5 @@
 - provide :title, "「#{@menu.name}」のメニュー情報"  
-
+= link_to  "編集する", edit_menu_path(@menu) 
 ul.menu_profile
   li= "メニューID：#{@menu.id}"
   li 
@@ -9,5 +9,15 @@ ul.menu_profile
   li= "価格：#{@menu.price}"
   li= "評価：#{@menu.evaluation}"
 
-  = link_to  "編集する", edit_menu_path(@menu) 
 
+
+= form_with model: [@menu, @comment], class: "message-form" do |f|
+  = f.text_area :content, {class: "textbox"}
+  = f.submit "コメントする", class: "form_submit"
+
+- @menu.comments.each do |comment|
+  ul
+    p --------------------------------------
+    li= link_to  "#{@users.find(comment.user_id).name}", user_path(@users.find(comment.user_id)) 
+    li= date_format(comment.created_at)
+    li= comment.content

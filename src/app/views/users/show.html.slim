@@ -1,8 +1,8 @@
 - provide :title, "「#{@user.name}」のアカウント情報"
+= link_to  "編集する", edit_user_path(@user) 
 ul
   li= "名前：#{@user.name}"
   li= "メールアドレス：#{@user.email}"
   - birthday = @user.birthday
   li= "生年月日：#{birthday.strftime("%Y年%m月%d日") }"
 
-= link_to  "編集する", edit_user_path(@user) 
