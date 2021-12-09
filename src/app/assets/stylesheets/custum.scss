@@ -67,3 +67,26 @@ p {
   margin-top: 45px;
   @include box_sizing;
 }
+
+
+// header
+
+.navbar-nav {
+  width: 80%;
+  display: flexbox;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin: 0 auto;
+  margin-bottom: 30px;
+  li {
+    font-size: 12px;
+  }
+
+}
+
+// body
+
+.container {
+  width: 1090px;
+}

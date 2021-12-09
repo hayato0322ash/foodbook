@@ -5,4 +5,9 @@ Rails.application.routes.draw do
   resources :menus do
     resources :comments, only: :create
   end
+  resources :menus do
+    resources :comments do
+      resources :replies, only: :create
+    end
+  end
 end
