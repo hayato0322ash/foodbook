@@ -7,7 +7,7 @@ class MenusController < ApplicationController
   def show
     @users = User.all
     @comment = Comment.new
-    @comments = @menu.comments.order(created_at: :desc)
+    @reply = Reply.new
   end
 
   def new

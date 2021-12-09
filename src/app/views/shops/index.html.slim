@@ -4,6 +4,8 @@
   
   ul.shop-profile
     li= "店舗ID：#{shop.id}"
-    li= link_to "店舗名：#{shop.name}", shop_path(shop)
+    li
+      | 店舗名：
+      = link_to "#{shop.name}", shop_path(shop)
     / li= "営業時間：#{shop.business_hour}"
     / li= "店舗住所：#{shop.address}"

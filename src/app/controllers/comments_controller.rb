@@ -3,7 +3,7 @@ class CommentsController < ApplicationController
     @menu = Menu.find(params[:menu_id])
     comment = Comment.new comment_params
     if comment.save
-      redirect_to menu_path(@menu)
+      redirect_to menu_url(@menu)
     else
       flash.now[:alert] = 'コメントを入力してください'
     end
