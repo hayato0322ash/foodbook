@@ -31,3 +31,14 @@ User.create!(name: name,
              password_confirmation: password,
              birthday: birthday,
              sex: sex)
+name = '橋本　環奈'
+email = 'hayato0322biz@gmail.com'
+password = 'h03220322'
+birthday = Date.new(1996, 3, 22)
+sex = '女性'
+User.create!(name: name,
+             email: email,
+             password: password,
+             password_confirmation: password,
+             birthday: birthday,
+             sex: sex)
