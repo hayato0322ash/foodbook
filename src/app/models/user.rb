@@ -8,4 +8,6 @@ class User < ApplicationRecord
   validates :password_confirmation, presence: true
   # validates :sex, presence: true
   validates :birthday, presence: true
+
+  has_secure_password
 end
