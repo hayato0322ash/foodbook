@@ -1,0 +1,4 @@
+- if @menu.errors.present?
+  ul#error_explanation
+    - @menu.errors.full_messages.each do |message|
+      li= message

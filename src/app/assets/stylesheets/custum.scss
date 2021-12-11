@@ -39,7 +39,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
-  font-size: 3em;
+
   letter-spacing: -2px;
   margin-bottom: 30px;
   text-align: center;
@@ -85,8 +85,17 @@ p {
 
 }
 
+.page-title h1{
+  font-size: 40px;
+}
+
 // body
 
 .container {
   width: 1090px;
+}
+
+.form-box {
+  width: 500px;
+  margin: 0 auto;
 }

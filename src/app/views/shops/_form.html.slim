@@ -1,0 +1,13 @@
+= render partial: "errors_messages" 
+.form-box
+  = form_with model: @shop, local: true do |f|
+    .form-group 
+      = f.label :name, '店舗名'
+      = f.text_field :name, class: 'form-control'
+    .form-group
+      = f.label :business_hour, '営業時間'
+      = f.text_field :business_hour, class: 'form-control'
+    .form-group 
+      = f.label :address, '店舗住所'
+      = f.text_field :address, class: 'form-control'
+    = f.submit '登録する', class: 'btn btn-primary'
