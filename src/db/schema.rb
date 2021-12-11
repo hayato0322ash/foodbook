@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_11_225033) do
+ActiveRecord::Schema.define(version: 2021_12_11_232336) do
 
   create_table "comments", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "menu_id"
@@ -55,6 +55,7 @@ ActiveRecord::Schema.define(version: 2021_12_11_225033) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "password_digest"
+    t.boolean "admin", default: false
   end
 
   add_foreign_key "menus", "users", column: "shop_id"
