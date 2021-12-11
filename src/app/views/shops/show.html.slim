@@ -4,12 +4,9 @@ ul.shop_profile
   li= "店舗名： #{@shop.name} "
   li= "営業時間：#{@shop.business_hour}"
   li= "店舗住所：#{@shop.address}"
-
 h3
   | メニュー一覧
-
-- @shop.menus.each do |menu|
-  
+- @shop.menus.each do |menu|  
   ul.menu-profile
     li= "メニューID：#{menu.id}"
     li
