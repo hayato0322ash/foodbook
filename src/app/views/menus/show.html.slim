@@ -1,5 +1,7 @@
 - provide :title, "「#{@menu.name}」のメニュー情報"  
-= link_to  "編集する", edit_menu_path(@menu) 
+ul.btn-list
+  li = link_to  "編集", edit_menu_path(@menu)
+  li = link_to  "削除", menu_path, method: "delete" 
 ul.menu_profile
   li= "メニューID：#{@menu.id}"
   li 
@@ -17,6 +19,9 @@ ul.menu_profile
     li= link_to  "#{@users.find(comment.user_id).name}", user_path(@users.find(comment.user_id)) 
     li= date_format(comment.created_at)
     li= comment.content
+    - if session[:user_id] == comment.user.id
+      ul.btn-list
+        li = link_to  "削除", menu_comment_path(@menu.id,comment.id), method: "delete" 
     = form_with url: menu_comment_replies_url(comment.menu, comment), class: "reply-form" do |ff|
       = ff.text_area :content, {class: "contentbox"}
       = ff.submit "リプライする", class: "form_submit"
@@ -24,3 +29,6 @@ ul.menu_profile
       ul
         li= link_to  "#{@users.find(reply.user_id).name}", user_path(@users.find(reply.user_id)) 
         li= reply.content
+        - if session[:user_id] == reply.user.id
+          ul.btn-list
+            li = link_to  "削除", menu_comment_reply_path(@menu.id, comment.id, reply.id), method: "delete" 

@@ -1,4 +1,5 @@
 - provide :title, 'メニュー一覧'
+p --------------------------------------
 - @menus.each do |menu|
   ul.menu-profile
     li= "メニューID：#{menu.id}"
@@ -10,3 +11,4 @@
       = link_to  "#{menu.shop.name}", shop_path(menu.shop) 
     / li= "価格：#{menu.price}"
     / li= "評価：#{menu.evaluation}"
+  p --------------------------------------

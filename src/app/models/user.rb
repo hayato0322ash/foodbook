@@ -1,6 +1,6 @@
 class User < ApplicationRecord
-  has_many :comments, dependent: :destroy
-  has_many :replies, dependent: :destroy
+  has_many :comments, foreign_key: 'user_id', dependent: :destroy
+  has_many :replies, foreign_key: 'user_id', dependent: :destroy
 
   validates :name, presence: true
   validates :email, presence: true

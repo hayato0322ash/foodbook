@@ -16,7 +16,7 @@ class MenusController < ApplicationController
 
   def create
     # ログイン機能の実装までの仮
-    @shop = Shop.find(2)
+    @shop = Shop.find(session[:user_id])
     @menu = @shop.menus.new menu_params
     # @menu = Menu.new(name: params[:name], price: params[:price], evaluation: 3, shop_id: 1)
     return redirect_to menu_url(@menu), success: "メニュー「#{@menu.name}」を作成しました" if @menu.save
@@ -34,7 +34,7 @@ class MenusController < ApplicationController
 
   def destroy
     @menu.destroy
-    redirect_to root_url, success: "メニュー「#{@menu.name}」を削除しました"
+    redirect_to menus_url, success: "メニュー「#{@menu.name}」を削除しました"
   end
 
   private

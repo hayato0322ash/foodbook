@@ -3,11 +3,11 @@ Rails.application.routes.draw do
   resources :users
   resources :shops
   resources :menus do
-    resources :comments, only: :create
+    resources :comments, only: %i[create destroy]
   end
   resources :menus do
     resources :comments do
-      resources :replies, only: :create
+      resources :replies, only: %i[create destroy]
     end
   end
 

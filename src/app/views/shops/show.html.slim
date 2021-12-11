@@ -1,18 +1,25 @@
 - provide :title, "「#{@shop.name}」の店舗情報"  
-= link_to  "編集する", edit_shop_path(@shop)
+ul.btn-list
+  li = link_to  "編集", edit_shop_path(@shop)
+  li = link_to  "削除", shop_path, method: "delete" 
 ul.shop_profile
   li= "店舗名： #{@shop.name} "
   li= "営業時間：#{@shop.business_hour}"
   li= "店舗住所：#{@shop.address}"
+p --------------------------------------
 h3
-  | メニュー一覧
+  = "↓「#{@shop.name}」メニュー一覧↓"
+p --------------------------------------
 - @shop.menus.each do |menu|  
   ul.menu-profile
     li= "メニューID：#{menu.id}"
     li
       | メニュー名：
       = link_to "#{menu.name}", menu_path(menu)
+      ul.btn-list
+        li = link_to  "削除", menu_path(menu.id), method: "delete" 
     / li= "価格：#{menu.price}"
     / li= "評価：#{menu.evaluation}"
+  p --------------------------------------
 
 
