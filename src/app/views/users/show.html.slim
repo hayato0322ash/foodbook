@@ -1,5 +1,9 @@
 - provide :title, "「#{@user.name}」のアカウント情報"
-= link_to  "編集する", edit_user_path(@user) 
+- if session[:user_id] == @user.id
+  ul.btn-box
+    li= link_to "編集", edit_user_path(@user)
+    li= link_to "削除", user_path, method: "delete"
+
 ul
   li= "名前：#{@user.name}"
   li= "メールアドレス：#{@user.email}"

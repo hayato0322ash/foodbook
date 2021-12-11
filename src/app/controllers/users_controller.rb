@@ -27,6 +27,7 @@ class UsersController < ApplicationController
   end
 
   def destroy
+    session.delete(:user_id)
     @user.destroy
     redirect_to root_url, success: "ユーザー「#{@user.name}」を削除しました"
   end

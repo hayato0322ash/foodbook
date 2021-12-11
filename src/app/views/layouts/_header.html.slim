@@ -5,7 +5,6 @@ ul.navbar-nav.ml-auto
     li.nav-item = link_to  "店舗一覧", shops_path 
     li.nav-item = link_to "ログイン", login_path
   - else
-    li.nav-item = link_to "ユーザー登録", new_user_path
     li.nav-item = link_to "ユーザー一覧", users_path
     / li.nav-item = link_to "プロフィール情報", root_path
     li.nav-item = link_to "メニューを登録する", new_menu_path
@@ -18,3 +17,4 @@ ul.navbar-nav.ml-auto
   - current_user = User.find(session[:user_id])
   | ユーザー名：
   = link_to "#{current_user.name}", user_path(current_user)
+

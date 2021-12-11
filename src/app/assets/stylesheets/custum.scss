@@ -72,14 +72,15 @@ p {
 // header
 
 .navbar-nav {
-  width: 80%;
+
   display: flexbox;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: space-around;
+  justify-content: center;
   margin: 0 auto;
   margin-bottom: 30px;
   li {
+    margin: 0px 20px;
     font-size: 12px;
   }
 
