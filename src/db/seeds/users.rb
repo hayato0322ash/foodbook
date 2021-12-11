@@ -8,7 +8,8 @@ User.create!(name: name,
              password: password,
              password_confirmation: password,
              birthday: birthday,
-             sex: sex)
+             sex: sex,
+             admin: true)
 name = '岡本　和也'
 email = 'contact@starskill.jp'
 password = 'h03220322'
