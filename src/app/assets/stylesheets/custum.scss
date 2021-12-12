@@ -55,7 +55,6 @@ h2 {
 
 p {
   font-size: 1.1em;
-  line-height: 1.7em;
 }
 
 /* miscellaneous */
@@ -67,13 +66,23 @@ p {
   margin-top: 45px;
   @include box_sizing;
 }
-
-
 // header
-
+.nav-box {
+  width: 1090px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin: 0 auto;
+}
+.Current-User-Box {
+  width: 200px;
+  font-size: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
 .navbar-nav {
-
-  display: flexbox;
+  display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
@@ -90,6 +99,8 @@ p {
   font-size: 40px;
 }
 
+
+
 // body
 
 .container {
@@ -99,4 +110,15 @@ p {
 .form-box {
   width: 500px;
   margin: 0 auto;
+}
+
+.btn-box {
+  width: 110px;
+  display: flex;
+  justify-content: space-between;
+}
+.back-box {
+  width: 140px;
+  display: flex;
+  justify-content: space-between;
 }

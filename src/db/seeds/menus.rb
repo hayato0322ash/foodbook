@@ -1,4 +1,4 @@
-shop_id = 2
+shop_id = 1
 name = 'スターバックスラテ'
 price = 420
 evaluation = 3

@@ -1,23 +1,26 @@
-ul.navbar-nav.ml-auto 
-  - if session[:user_id].nil?
-    li.nav-item = link_to "ユーザー登録", new_user_path
-    li.nav-item = link_to "メニュー一覧", menus_path
-    li.nav-item = link_to  "店舗一覧", shops_path 
-    li.nav-item = link_to "ログイン", login_path
-  - else
-    li.nav-item = link_to "ユーザー一覧", users_path
-    / li.nav-item = link_to "プロフィール情報", root_path
-    li.nav-item = link_to "メニューを登録する", new_menu_path
-    li.nav-item = link_to "メニュー一覧", menus_path
-    / li.nav-item = link_to "お気に入りメニュー", root_path
-    li.nav-item = link_to "店舗を登録する", new_shop_path
-    li.nav-item = link_to  "店舗一覧", shops_path 
-    li.nav-item = link_to  "ログアウト", logout_path, method: "delete" 
-- if session[:user_id].present?
-  - current_user = User.find(session[:user_id])
-  | ユーザー名：
-  = link_to "#{current_user.name}", user_path(current_user)
-  - if current_user.admin?
-    p
-      | ※管理者がログイン中
-
+div.nav-box
+  - if session[:user_id].present?
+    - current_user = User.find(session[:user_id])
+    div.Current-User-Box
+      span
+        | ユーザー名：
+        = link_to "#{current_user.name}", user_path(current_user)
+      - if current_user.admin?
+        p
+          | ※管理者がログイン中
+  ul.navbar-nav.ml-auto 
+    - if session[:user_id].nil?
+      li.nav-item = link_to "ユーザー登録", new_user_path
+      li.nav-item = link_to "メニュー一覧", menus_path
+      li.nav-item = link_to  "店舗一覧", shops_path 
+      li.nav-item = link_to "ログイン", login_path
+    - else
+      li.nav-item = link_to "ユーザー一覧", users_path
+      / li.nav-item = link_to "プロフィール情報", root_path
+      li.nav-item = link_to "メニューを登録する", new_menu_path
+      li.nav-item = link_to "メニュー一覧", menus_path
+      / li.nav-item = link_to "お気に入りメニュー", root_path
+      li.nav-item = link_to "店舗を登録する", new_shop_path
+      li.nav-item = link_to  "店舗一覧", shops_path 
+      li.nav-item = link_to  "ログアウト", logout_path, method: "delete" 
+  
