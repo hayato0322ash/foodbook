@@ -17,4 +17,7 @@ ul.navbar-nav.ml-auto
   - current_user = User.find(session[:user_id])
   | ユーザー名：
   = link_to "#{current_user.name}", user_path(current_user)
+  - if current_user.admin?
+    p
+      | ※管理者がログイン中
 

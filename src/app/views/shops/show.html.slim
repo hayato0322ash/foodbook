@@ -1,7 +1,8 @@
-- provide :title, "「#{@shop.name}」の店舗情報"  
-ul.btn-list
-  li = link_to  "編集", edit_shop_path(@shop)
-  li = link_to  "削除", shop_path, method: "delete" 
+- provide :title, "「#{@shop.name}」の店舗情報"
+- if session[:user_id] && User.find(session[:user_id]).admin?
+  ul.btn-list
+    li = link_to  "編集", edit_shop_path(@shop)
+    li = link_to  "削除", shop_path, method: "delete" 
 ul.shop_profile
   li= "店舗名： #{@shop.name} "
   li= "営業時間：#{@shop.business_hour}"
