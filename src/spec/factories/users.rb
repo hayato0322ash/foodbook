@@ -6,5 +6,6 @@ FactoryBot.define do
     password_confirmation { 'h03220322' }
     sex { '男性' }
     birthday { Date.new(1900, 5, 1) }
+    admin { false }
   end
 end
