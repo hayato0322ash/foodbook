@@ -1,6 +1,16 @@
 - provide :title, "「#{@shop.name}」の編集画面"
-- if @shop.errors.present?
-  ul#error_explanation
-    - @shop.errors.full_messages.each do |message|
-      li= message
-= render partial: "form" 
+= render partial: "errors_messages" 
+.form-box
+  = form_with model: @shop, local: true do |f|
+    .form-group 
+      = f.label :name, '店舗名'
+      = f.text_field :name, class: 'form-control'
+    .form-group
+      = f.label :business_hour, '営業時間'
+      = f.text_field :business_hour, class: 'form-control'
+    .form-group 
+      = f.label :address, '店舗住所'
+      = f.text_field :address, class: 'form-control'
+    = f.submit '編集する', class: 'btn btn-primary', data: {confirm: "「#{@shop.name}」を編集しますか？"}
+    = link_to  "削除する", shop_path, method: "delete", class:"btn btn-danger", data: {confirm: "「#{@shop.name}」を削除しますか？"}
+

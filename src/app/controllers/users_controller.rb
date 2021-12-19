@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: %i[show edit update destroy]
+  before_action :correct_user, only: %i[edit update destroy]
 
   def index
     @users = User.all
@@ -13,7 +14,7 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new user_params
-    return redirect_to user_url(@user), success: "ユーザー「#{@user.name}」を登録しました" if @user.save
+    return redirect_to user_url(@user), success: '登録完了しました' if @user.save
 
     render :new
   end
@@ -27,9 +28,18 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    session.delete(:user_id)
-    @user.destroy
-    redirect_to root_url, success: "ユーザー「#{@user.name}」を削除しました"
+    if admin? && current_user?(@user)
+      session.delete(:user_id)
+      @user.destroy
+      redirect_to login_url, success: "ユーザー「#{@user.name}」を削除しました"
+    elsif admin?
+      @user.destroy
+      redirect_to users_url, success: "ユーザー「#{@user.name}」を削除しました"
+    else
+      session.delete(:user_id)
+      @user.destroy
+      redirect_to root_url, success: "ユーザー「#{@user.name}」を削除しました"
+    end
   end
 
   private

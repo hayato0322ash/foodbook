@@ -3,10 +3,10 @@ ul.shop_profile
   li= "店舗名： #{@shop.name} "
   li= "営業時間：#{@shop.business_hour}"
   li= "店舗住所：#{@shop.address}"
-- if session[:user_id].present? && User.find(session[:user_id]).admin?
+- if admin?
   ul.btn-box
     li = link_to  "編集", edit_shop_path(@shop)
-    li = link_to  "削除", shop_path, method: "delete" 
+    li = link_to  "削除", shop_path, method: "delete", data: {confirm: "「#{@shop.name}」を削除しますか？"}
 p --------------------------------------
 h3
   = "↓「#{@shop.name}」メニュー一覧↓"
@@ -17,9 +17,9 @@ p --------------------------------------
     li
       | メニュー名：
       = link_to "#{menu.name}", menu_path(menu)
-  - if session[:user_id] && User.find(session[:user_id]).admin?
+  - if admin?
     ul.btn-box
-      li = link_to  "削除", menu_path(menu.id), method: "delete" 
+      li = link_to  "削除", menu_path(menu.id), method: "delete", data: {confirm: "「#{menu.name}」を削除しますか？"}
       / li= "価格：#{menu.price}"
       / li= "評価：#{menu.evaluation}"
     

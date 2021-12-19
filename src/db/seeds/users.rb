@@ -43,3 +43,36 @@ User.create!(name: name,
              password_confirmation: password,
              birthday: birthday,
              sex: sex)
+name = '篠原　涼子'
+email = 'test@gmail.com'
+password = 'h03220322'
+birthday = Date.new(1976, 3, 22)
+sex = '女性'
+User.create!(name: name,
+             email: email,
+             password: password,
+             password_confirmation: password,
+             birthday: birthday,
+             sex: sex)
+name = '志々雄　真実'
+email = 'rengoku@gmail.com'
+password = 'h03220322'
+birthday = Date.new(1860, 3, 22)
+sex = '男性'
+User.create!(name: name,
+             email: email,
+             password: password,
+             password_confirmation: password,
+             birthday: birthday,
+             sex: sex)
+name = '雪代　縁'
+email = 'neesan@gmail.com'
+password = 'h03220322'
+birthday = Date.new(1870, 3, 22)
+sex = '男性'
+User.create!(name: name,
+             email: email,
+             password: password,
+             password_confirmation: password,
+             birthday: birthday,
+             sex: sex)

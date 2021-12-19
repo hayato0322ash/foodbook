@@ -1,3 +1,5 @@
 ul.back-box
-  li= link_to  "戻る", :back 
-  li= link_to  "トップへ", root_path
+  - if current_user
+    li= link_to  "TOPへ", user_path(current_user)
+  - else
+    li= link_to  "TOPへ", root_path

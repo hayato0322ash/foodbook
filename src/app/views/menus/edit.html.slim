@@ -1,2 +1,15 @@
 - provide :title, "「#{@menu.name}」の編集画面"
-= render partial: "form" 
+= render partial: "errors_messages" 
+.form-box
+  = form_with model: @menu, local: true do |f|
+    .form-group 
+      = f.label :name, 'メニュー名'
+      = f.text_field :name, class: 'form-control'
+    .form-group
+      = f.label :price, '価格'
+      = f.number_field :price, class: 'form-control'
+    .form-group
+      = f.label :evaluation, '評価'
+      = f.number_field :evaluation, class: 'form-control'
+    = f.submit '編集する', class: 'btn btn-primary', data: {confirm: "「#{@menu.name}」を編集しますか？"}
+    = link_to  "削除する", menu_path, method: "delete", class:"btn btn-danger", data: {confirm: "「#{@menu.name}」を削除しますか？"}

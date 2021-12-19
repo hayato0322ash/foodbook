@@ -1,3 +1,16 @@
 - provide :title, "メニュー登録"
-= render partial: "form" 
+= render partial: "errors_messages" 
+.form-box
+  = form_with model: @menu, local: true do |f|
+    .form-group 
+      = f.label :name, 'メニュー名'
+      = f.text_field :name, class: 'form-control'
+    .form-group
+      = f.label :price, '価格'
+      = f.number_field :price, class: 'form-control'
+    .form-group
+      = f.label :evaluation, '評価'
+      = f.number_field :evaluation, class: 'form-control'
+    = f.submit '登録する', class: 'btn btn-primary', data: {confirm: "新規メニュー登録しますか？"}
+    
 

@@ -1,8 +1,8 @@
 FactoryBot.define do
   factory :menu do
-    name { "MyString" }
-    price { 1 }
-    evaluation { 1 }
-    user { nil }
+    name { '河上自家焙煎ホットコーヒー' }
+    price { 300 }
+    evaluation { 5 }
+    association :shop
   end
 end

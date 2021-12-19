@@ -5,10 +5,8 @@ Rails.application.routes.draw do
   resources :menus do
     resources :comments, only: %i[create destroy]
   end
-  resources :menus do
-    resources :comments do
-      resources :replies, only: %i[create destroy]
-    end
+  resources :comments do
+    resources :replies, only: %i[create destroy]
   end
 
   controller :sessions do
