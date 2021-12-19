@@ -1,8 +1,7 @@
 FactoryBot.define do
   factory :reply do
     content { 'MyText' }
-    association :user
-    association :menu
+    user { comment.user }
     association :comment
   end
 end

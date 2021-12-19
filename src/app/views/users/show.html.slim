@@ -5,7 +5,7 @@ ul
   - birthday = @user.birthday
   li= "生年月日：#{birthday.strftime("%Y年%m月%d日") }"
   li= "メールアドレス：#{@user.email}"
-- if User.find(session[:user_id]).admin? || session[:user_id] == @user.id
+- if admin? || current_user?(@user)
   ul.btn-box
     li= link_to "編集", edit_user_path(@user)
-    li= link_to "削除", user_path, method: "delete"
+    li= link_to "削除", user_path, method: "delete", data: { confirm: "本当に「#{@user.name}」を削除しますか？"}

@@ -58,5 +58,4 @@ ActiveRecord::Schema.define(version: 2021_12_11_232336) do
     t.boolean "admin", default: false
   end
 
-  add_foreign_key "menus", "users", column: "shop_id"
 end

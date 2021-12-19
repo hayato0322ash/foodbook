@@ -12,28 +12,32 @@ RSpec.describe Shop, type: :model do
   context '店舗名が存在しない場合' do
     it '店舗登録は無効である' do
       shop_a = build :shop, name: ''
-      expect(shop_a).not_to be_valid
+      shop_a.valid?
+      expect(shop_a.errors[:name]).to include('を入力してください')
     end
   end
 
   context '店舗名が他店舗と重複している場合' do
     it '店舗登録は無効である' do
-      shop_b = build :shop, name: '河上商店'
-      expect(shop_b).not_to be_valid
+      shop_a = build :shop, name: 'スターバックスコーヒー小平天神店'
+      shop_a.valid?
+      expect(shop_a.errors[:name]).to include('はすでに存在します')
     end
   end
 
   context '営業時間が存在しない場合' do
     it '店舗登録は無効である' do
       shop_a = build :shop, business_hour: ''
-      expect(shop_a).not_to be_valid
+      shop_a.valid?
+      expect(shop_a.errors[:business_hour]).to include('を入力してください')
     end
   end
 
   context '店舗住所が存在しない場合' do
     it '店舗登録は無効である' do
-      shop_a = build :shop, business_hour: ''
-      expect(shop_a).not_to be_valid
+      shop_a = build :shop, address: ''
+      shop_a.valid?
+      expect(shop_a.errors[:address]).to include('を入力してください')
     end
   end
 end
