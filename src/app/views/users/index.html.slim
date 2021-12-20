@@ -1,4 +1,5 @@
 - provide :title, "ユーザー一覧"
+= paginate @users
 p --------------------------------------
 - @users.each do |user|
   ul.user_data
@@ -11,5 +12,5 @@ p --------------------------------------
     li= "メールアドレス：#{user.email}"
     -if user.admin
       li= "管理者権限：あり"
-
   p --------------------------------------
+= paginate @users

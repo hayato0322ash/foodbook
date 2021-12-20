@@ -2,10 +2,12 @@ class ShopsController < ApplicationController
   before_action :set_shop, only: %i[show edit update destroy]
   before_action :correct_user, only: %i[new create edit update destroy]
   def index
-    @shops = Shop.all
+    @shops = Shop.page(params[:page]).per(10)
   end
 
-  def show; end
+  def show
+    @menus = Menu.where(shop_id: params[:id]).page(params[:page]).per(5)
+  end
 
   def new
     @shop = Shop.new

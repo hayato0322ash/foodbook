@@ -10,8 +10,10 @@ ul.shop_profile
 p --------------------------------------
 h3
   = "↓「#{@shop.name}」メニュー一覧↓"
+
 p --------------------------------------
-- @shop.menus.each do |menu|  
+= paginate @menus
+- @menus.each do |menu|  
   ul.menu-profile
     li= "メニューID：#{menu.id}"
     li
