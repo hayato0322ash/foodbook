@@ -7,6 +7,7 @@ class ShopsController < ApplicationController
 
   def show
     @menus = Menu.where(shop_id: params[:id]).page(params[:page]).per(5)
+    @menus_count = @shop.menus.count
   end
 
   def new
@@ -30,7 +31,7 @@ class ShopsController < ApplicationController
 
   def destroy
     @shop.destroy
-    redirect_to shops_url, success: "店舗「#{@shop.name}」を削除しました"
+    redirect_to shops_url, danger: "店舗「#{@shop.name}」を削除しました"
   end
 
   private

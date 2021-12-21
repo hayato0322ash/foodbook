@@ -1,5 +1,6 @@
-- provide :title, "「#{@shop.name}」の店舗情報"
+- provide :title, "#{@shop.name}"
 ul.shop_profile
+  li= "メニュー数：#{@menus_count}"
   li= "店舗名： #{@shop.name} "
   li= "営業時間：#{@shop.business_hour}"
   li= "店舗住所：#{@shop.address}"
@@ -7,24 +8,24 @@ ul.shop_profile
   ul.btn-box
     li = link_to  "編集", edit_shop_path(@shop)
     li = link_to  "削除", shop_path, method: "delete", data: {confirm: "「#{@shop.name}」を削除しますか？"}
-p --------------------------------------
-h3
-  = "↓「#{@shop.name}」メニュー一覧↓"
 
-p --------------------------------------
 = paginate @menus
-- @menus.each do |menu|  
-  ul.menu-profile
-    li= "メニューID：#{menu.id}"
-    li
-      | メニュー名：
-      = link_to "#{menu.name}", menu_path(menu)
-  - if admin?
-    ul.btn-box
-      li = link_to  "削除", menu_path(menu.id), method: "delete", data: {confirm: "「#{menu.name}」を削除しますか？"}
-      / li= "価格：#{menu.price}"
-      / li= "評価：#{menu.evaluation}"
-    
-  p --------------------------------------
+- if @shop.menus.present?
+  h3
+    = "メニュー表"
+  - @menus.each do |menu|  
+    ul.menu-profile
+      / li= "メニューID：#{menu.id}"
+      li
+        - if admin?
+          = link_to  "編集 ", edit_menu_path(menu.id)
+          = link_to  "削除 ", menu_path(menu.id), method: "delete", data: {confirm: "「#{menu.name}」を削除しますか？"}
+        | ❤︎ #{menu.likes.count} 
+        = link_to "#{menu.name}", menu_path(menu)
+        
+        / li= "価格：#{menu.price}"
+        / li= "評価：#{menu.evaluation}"
+      
+
 
 

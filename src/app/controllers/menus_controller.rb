@@ -9,6 +9,7 @@ class MenusController < ApplicationController
     @users = User.all
     @comment = Comment.new
     @reply = Reply.new
+    @likes = Like.where(menu_id: params[:id])
   end
 
   def new
@@ -35,7 +36,7 @@ class MenusController < ApplicationController
 
   def destroy
     @menu.destroy
-    redirect_to menus_url, success: "メニュー「#{@menu.name}」を削除しました"
+    redirect_to menus_url, danger: "メニュー「#{@menu.name}」を削除しました"
   end
 
   private

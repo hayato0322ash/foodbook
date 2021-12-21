@@ -1,13 +1,12 @@
 - provide :title, '店舗一覧'
 = paginate @shops
-p --------------------------------------
+
 - @shops.each do |shop|
   ul.shop-profile
-    li= "店舗ID：#{shop.id}"
+    / li= "店舗ID：#{shop.id}"
     li
       | 店舗名：
       = link_to "#{shop.name}", shop_path(shop)
     / li= "営業時間：#{shop.business_hour}"
     / li= "店舗住所：#{shop.address}"
-  p --------------------------------------
 = paginate @shops

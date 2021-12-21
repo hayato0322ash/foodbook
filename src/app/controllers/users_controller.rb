@@ -6,7 +6,9 @@ class UsersController < ApplicationController
     @users = User.page(params[:page]).per(10)
   end
 
-  def show; end
+  def show
+    @likes = Like.where(user_id: params[:id])
+  end
 
   def new
     @user = User.new
@@ -31,14 +33,14 @@ class UsersController < ApplicationController
     if admin? && current_user?(@user)
       session.delete(:user_id)
       @user.destroy
-      redirect_to login_url, success: "ユーザー「#{@user.name}」を削除しました"
+      redirect_to login_url, danger: "ユーザー「#{@user.name}」を削除しました"
     elsif admin?
       @user.destroy
-      redirect_to users_url, success: "ユーザー「#{@user.name}」を削除しました"
+      redirect_to users_url, danger: "ユーザー「#{@user.name}」を削除しました"
     else
       session.delete(:user_id)
       @user.destroy
-      redirect_to root_url, success: "ユーザー「#{@user.name}」を削除しました"
+      redirect_to root_url, danger: "ユーザー「#{@user.name}」を削除しました"
     end
   end
 
