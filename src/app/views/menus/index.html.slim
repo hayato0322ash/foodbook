@@ -1,16 +1,15 @@
 - provide :title, 'メニュー一覧'
 = paginate @menus
-p --------------------------------------
+
 - @menus.each do |menu|
   ul.menu-profile
-    li= "メニューID：#{menu.id}"
+    / li= "メニューID：#{menu.id}"
     li
       | メニュー名：
       = link_to "#{menu.name}", menu_path(menu)
-    li
-      | 店舗名：
-      = link_to  "#{menu.shop.name}", shop_path(menu.shop) 
+    / li
+    /   | 店舗名：
+    /   = link_to  "#{menu.shop.name}", shop_path(menu.shop) 
     / li= "価格：#{menu.price}"
     / li= "評価：#{menu.evaluation}"
-  p --------------------------------------
 = paginate @menus

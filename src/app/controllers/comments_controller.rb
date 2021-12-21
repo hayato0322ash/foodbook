@@ -3,15 +3,15 @@ class CommentsController < ApplicationController
   def create
     comment = Comment.new comment_params
     if comment.save
-      redirect_to menu_url(@menu)
+      redirect_to menu_url(@menu), success: 'コメントを投稿しました'
     else
-      flash.now[:alert] = 'コメントを入力してください'
+      redirect_to menu_url(@menu), danger: 'コメントを入力してください'
     end
   end
 
   def destroy
     Comment.find(params[:id]).destroy
-    redirect_to menu_url(@menu), success: 'コメントを削除しました'
+    redirect_to menu_url(@menu), danger: 'コメントを削除しました'
   end
 
   private

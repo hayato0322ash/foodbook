@@ -1,9 +1,12 @@
 Rails.application.routes.draw do
+  get 'likes/create'
+  get 'likes/destroy'
   root to: 'sessions#new'
   resources :users
   resources :shops
   resources :menus do
     resources :comments, only: %i[create destroy]
+    resources :likes, only: %i[create destroy]
   end
   resources :comments do
     resources :replies, only: %i[create destroy]

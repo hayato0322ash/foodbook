@@ -122,3 +122,65 @@ p {
   display: flex;
   justify-content: space-between;
 }
+
+.user_data {
+  padding: 25px 0px 10px 0px;
+  border-top:1px solid #b1b1b1 ;
+  
+}
+.shop-profile li {
+  width: 50%;
+  border-top: 1px solid #b1b1b1;
+  padding: 25px 0px 10px 0px;
+}
+.menu-profile li {
+  width: 50%;
+  border-top: 1px solid #b1b1b1;
+  padding: 25px 0px 10px 0px;
+}
+.comment-block {
+  border-top: 1px dotted #b1b1b1;
+  padding: 15px 0px 5px 0px;
+}
+.reply-form {
+  display: flex;
+  flex-direction: column;
+  .contentbox {
+    width: 20%;
+  }
+  .form_submit{
+    margin-top: 10px;
+    width: 150px;
+  }
+}
+
+.comment-form {
+  display: flex;
+  flex-direction: column;
+  border-top: 1.4px solid #727272;
+  padding-top: 20px;
+  .contentbox{
+    width: 30%;
+  }
+  .form_submit{
+    margin-top: 10px;
+    width: 150px;
+  }
+}
+
+.like-gray {
+  font-size: 18px;
+  color: #888888;
+  &:hover {
+    color: #888888;
+    text-decoration: none;
+  }
+}
+.like-pink {
+  font-size: 18px;
+  color: #fc0069;
+  &:hover {
+    color: #fc0069;
+    text-decoration: none;
+  }
+}

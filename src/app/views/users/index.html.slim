@@ -1,16 +1,14 @@
 - provide :title, "ユーザー一覧"
 = paginate @users
-p --------------------------------------
 - @users.each do |user|
   ul.user_data
     li= "ユーザーID：#{user.id}"
     li 
       | ユーザー名：
       = link_to "#{user.name}", user_path(user)
-    li= "性別：#{user.sex}"
-    li= "生年月日：#{user.birthday.strftime("%Y年%m月%d日")}"
-    li= "メールアドレス：#{user.email}"
+    / li= "性別：#{user.sex}"
+    / li= "生年月日：#{user.birthday.strftime("%Y年%m月%d日")}"
+    / li= "メールアドレス：#{user.email}"
     -if user.admin
       li= "管理者権限：あり"
-  p --------------------------------------
 = paginate @users
