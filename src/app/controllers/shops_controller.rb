@@ -1,6 +1,6 @@
 class ShopsController < ApplicationController
   before_action :set_shop, only: %i[show edit update destroy]
-  before_action :correct_user, only: %i[new create edit update destroy]
+  before_action :correct_shop, only: %i[edit update destroy]
   def index
     @shops = Shop.page(params[:page]).per(10)
   end
@@ -8,6 +8,7 @@ class ShopsController < ApplicationController
   def show
     @menus = Menu.where(shop_id: params[:id]).page(params[:page]).per(5)
     @menus_count = @shop.menus.count
+    @user = @shop.user
   end
 
   def new
@@ -37,7 +38,7 @@ class ShopsController < ApplicationController
   private
 
   def shop_params
-    params.require(:shop).permit(:name, :business_hour, :address)
+    params.require(:shop).permit(:name, :business_hour, :address).merge(user_id: current_user.id)
   end
 
   def set_shop

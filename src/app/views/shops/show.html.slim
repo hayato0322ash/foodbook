@@ -4,7 +4,10 @@ ul.shop_profile
   li= "店舗名： #{@shop.name} "
   li= "営業時間：#{@shop.business_hour}"
   li= "店舗住所：#{@shop.address}"
-- if admin?
+  li
+    | 店舗オーナー：
+    = link_to @user.name, user_path(@user)
+- if admin? || @shop.user_id == current_user.id
   ul.btn-box
     li = link_to  "編集", edit_shop_path(@shop)
     li = link_to  "削除", shop_path, method: "delete", data: {confirm: "「#{@shop.name}」を削除しますか？"}
@@ -17,7 +20,7 @@ ul.shop_profile
     ul.menu-profile
       / li= "メニューID：#{menu.id}"
       li
-        - if admin?
+        - if admin? || menu.shop.user_id == current_user.id
           = link_to  "編集 ", edit_menu_path(menu.id)
           = link_to  "削除 ", menu_path(menu.id), method: "delete", data: {confirm: "「#{menu.name}」を削除しますか？"}
         | ❤︎ #{menu.likes.count} 

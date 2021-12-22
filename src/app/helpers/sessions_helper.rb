@@ -16,6 +16,16 @@ module SessionsHelper
     user == current_user
   end
 
+  # カレントユーザーの店である？
+  def current_users_shop?(shop)
+    shop.user_id == current_user.id
+  end
+
+  # カレントユーザーの店である？
+  def current_users_shop_menu?(menu)
+    menu.shop.user_id == current_user.id
+  end
+
   # カレントユーザーが作ったもの？
   def current_user_item?(item)
     current_user.id == item.user.id if current_user
