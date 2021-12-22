@@ -1,6 +1,6 @@
 class MenusController < ApplicationController
   before_action :set_menu, only: %i[show edit update destroy]
-  before_action :correct_user, only: %i[new create edit update destroy]
+  before_action :correct_menu, only: %i[edit update destroy]
   def index
     @menus = Menu.page(params[:page]).per(10)
   end
@@ -14,13 +14,11 @@ class MenusController < ApplicationController
 
   def new
     @menu = Menu.new
+    @shops = current_user.shops
   end
 
   def create
-    # ログイン機能の実装までの仮
-    @shop = Shop.find(session[:user_id])
-    @menu = @shop.menus.new menu_params
-    # @menu = Menu.new(name: params[:name], price: params[:price], evaluation: 3, shop_id: 1)
+    @menu = Menu.new menu_params
     return redirect_to menu_url(@menu), success: "メニュー「#{@menu.name}」を作成しました" if @menu.save
 
     render :new
@@ -42,7 +40,7 @@ class MenusController < ApplicationController
   private
 
   def menu_params
-    params.require(:menu).permit(:name, :price, :evaluation)
+    params.require(:menu).permit(:name, :price, :evaluation, :shop_id)
   end
 
   def set_menu

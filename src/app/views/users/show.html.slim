@@ -1,12 +1,19 @@
 - provide :title, "#{@user.name}"
 ul
+  -if @user.admin?
+    li= "管理者権限：あり"
   li= "名前：#{@user.name}"
   li= "性別：#{@user.sex}" 
   - birthday = @user.birthday
   li= "生年月日：#{birthday.strftime("%Y年%m月%d日") }"
   li= "メールアドレス：#{@user.email}"
-  -if @user.admin?
-    li= "管理者権限：あり"
+  li
+    | 経営店舗：
+    ul.user-shops-list
+    - @user_shops.each do |shop|
+      li
+      = link_to shop.name, shop_path(shop)
+
 - if admin? || current_user?(@user)
   ul.btn-box
     li= link_to "編集", edit_user_path(@user)

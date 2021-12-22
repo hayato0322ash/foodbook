@@ -2,6 +2,7 @@ class User < ApplicationRecord
   has_many :comments, foreign_key: 'user_id', dependent: :destroy
   has_many :replies, foreign_key: 'user_id', dependent: :destroy
   has_many :likes, foreign_key: 'user_id', dependent: :destroy
+  has_many :shops, foreign_key: 'user_id', dependent: :destroy
 
   validates :name, presence: true, length: { maximum: 20 }
   validates :email, presence: true, uniqueness: true
