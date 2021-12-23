@@ -12,7 +12,7 @@ div.nav-box
       li.nav-item = link_to "ユーザー一覧", users_path
       li.nav-item = link_to "メニューを登録する", new_menu_path
       li.nav-item = link_to "メニュー一覧", menus_path
-      / li.nav-item = link_to "お気に入りメニュー", root_path
+      li.nav-item = link_to "お気に入りメニュー", user_favorites_path(current_user)
       li.nav-item = link_to "店舗を登録する", new_shop_path
       li.nav-item = link_to  "店舗一覧", shops_path 
       li.nav-item = link_to  "ログアウト", logout_path, method: "delete" 
@@ -20,7 +20,7 @@ div.nav-box
       li.nav-item = link_to "メニュー一覧", menus_path
       - if current_user.shops.present?
         li.nav-item = link_to "メニューを登録する", new_menu_path
-      / li.nav-item = link_to "お気に入りメニュー", root_path
+      li.nav-item = link_to "お気に入りメニュー", user_favorites_path(current_user)
       li.nav-item = link_to  "店舗一覧", shops_path 
       li.nav-item = link_to "店舗を登録する", new_shop_path
       li.nav-item = link_to  "ログアウト", logout_path, method: "delete" 

@@ -10,6 +10,7 @@ class MenusController < ApplicationController
     @comment = Comment.new
     @reply = Reply.new
     @likes = Like.where(menu_id: params[:id])
+    @favorites = Favorite.where(menu_id: params[:id])
   end
 
   def new
