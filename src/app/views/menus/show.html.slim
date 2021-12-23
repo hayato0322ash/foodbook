@@ -1,33 +1,34 @@
 - provide :title, "#{@menu.name}"
 
-ul.menu_profile
-  - if logged_in?
-    - if @likes.find_by(user_id: current_user.id).blank?
-      li
-        = link_to "❤︎ ", menu_likes_path(@menu), method: "post", class: "like-gray", remote: true
-        | #{@likes.count}
+ul.menu-show
+  ul.menu-LikeFavo-btn
+    - if logged_in?
+      - if @likes.find_by(user_id: current_user.id).blank?
+        li
+          = link_to "❤︎ ", menu_likes_path(@menu), method: "post", class: "like-gray", remote: true
+          | #{@likes.count}
+      - else 
+        li 
+          = link_to "❤︎ ", menu_like_path(@menu), method: "delete", class: "like-pink", remote: true
+          | #{@likes.count}
+      -if @favorites.find_by(user_id: current_user.id).blank?
+        li
+          = link_to "★ ", menu_favorites_path(@menu), method: "post", class: "favo-gray", remote: true
+          | #{@favorites.count}
+      -else
+        li
+          = link_to  "★ ", menu_favorite_path(@menu), method: "delete", class: "favo-orange", remote: true
+          | #{@favorites.count}
     - else 
-      li 
-        = link_to "❤︎ ", menu_like_path(@menu), method: "delete", class: "like-pink", remote: true
-        | #{@likes.count}
-    -if @favorites.find_by(user_id: current_user.id).blank?
-      li
-        = link_to "★ ", menu_favorites_path(@menu), method: "post", class: "favo-gray", remote: true
-        | #{@favorites.count}
-    -else
-      li
-        = link_to  "★ ", menu_favorite_path(@menu), method: "delete", class: "favo-orange", remote: true
-        | #{@favorites.count}
-  - else 
-    p = "❤︎ #{@likes.count}"
-    p = "★ #{@favorites.count}"
-  li= "メニューID：#{@menu.id}"
+      p = "❤︎ #{@likes.count}"
+      p = "★ #{@favorites.count}"
+  / li= "メニューID：#{@menu.id}"
   li 
     | 店舗名： 
     = link_to "#{@menu.shop.name}", shop_path(@menu.shop)
-  li= "メニュー名：#{@menu.name}"
-  li= "価格：#{@menu.price}"
-  li= "評価：#{@menu.evaluation}"
+  / li= "メニュー名：#{@menu.name}"
+  li= "価格：#{@menu.price}円"
+  li= "評価：#{@menu.evaluation}点"
 - if logged_in?
   - if admin? || @menu.shop.user_id == current_user.id 
     ul.btn-box
