@@ -9,6 +9,7 @@ class UsersController < ApplicationController
   def show
     @likes = Like.where(user_id: params[:id])
     @user_shops = Shop.where(user_id: @user.id)
+    @favorites = Favorite.where(user_id: current_user.id)
   end
 
   def new

@@ -23,7 +23,7 @@ ul.shop_profile
         - if admin? || menu.shop.user_id == current_user.id
           = link_to  "編集 ", edit_menu_path(menu.id)
           = link_to  "削除 ", menu_path(menu.id), method: "delete", data: {confirm: "「#{menu.name}」を削除しますか？"}
-        | ❤︎ #{menu.likes.count} 
+        | ★ #{menu.favorites.count}  ❤︎ #{menu.likes.count} 
         = link_to "#{menu.name}", menu_path(menu)
         
         / li= "価格：#{menu.price}"

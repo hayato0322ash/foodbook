@@ -25,6 +25,7 @@ ul
   - @likes.each do |like|
     ul 
       li
-        = "❤︎ #{like.menu.likes.count} "
+        = "★ #{like.menu.favorites.count} ❤︎ #{like.menu.likes.count} "
         = link_to like.menu.name, menu_path(like.menu) 
         / li= link_to like.menu.shop.name, shop_path(like.menu.shop)
+

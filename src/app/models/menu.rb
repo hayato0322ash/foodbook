@@ -1,6 +1,7 @@
 class Menu < ApplicationRecord
   has_many :comments, foreign_key: 'menu_id', dependent: :destroy
   has_many :likes, foreign_key: 'menu_id', dependent: :destroy
+  has_many :favorites, foreign_key: 'menu_id', dependent: :destroy
   belongs_to :shop
 
   validates :name, presence: true
