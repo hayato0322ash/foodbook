@@ -2,15 +2,15 @@
 ul.shop_profile
   li= "メニュー数：#{@menus_count}"
   li= "店舗名： #{@shop.name} "
-  li= "営業時間：#{@shop.business_hour}"
-  li= "店舗住所：#{@shop.address}"
+  li= "営業時間：#{@shop.open_hour.strftime("%H:%M")} ~ #{@shop.close_hour.strftime("%H:%M")}"
+  li= "店舗住所：〒#{@shop.postcode} #{JpPrefecture::Prefecture.find(@shop.prefecture_code).name}#{@shop.address_city}#{@shop.address_street} #{@shop.address_building}"
   li
     | 店舗オーナー：
     = link_to @user.name, user_path(@user)
 - if admin? || @shop.user_id == current_user.id
   ul.btn-box
-    li = link_to  "編集", edit_shop_path(@shop)
-    li = link_to  "削除", shop_path, method: "delete", data: {confirm: "「#{@shop.name}」を削除しますか？"}
+    li = link_to  "編集", edit_shop_path(@shop), class: "btn btn-primary"
+    li = link_to  "削除", shop_path, method: "delete", data: {confirm: "「#{@shop.name}」を削除しますか？"}, class: "btn btn-danger"
 
 = paginate @menus
 - if @shop.menus.present?
@@ -21,8 +21,8 @@ ul.shop_profile
       / li= "メニューID：#{menu.id}"
       li
         - if admin? || menu.shop.user_id == current_user.id
-          = link_to  "編集 ", edit_menu_path(menu.id)
-          = link_to  "削除 ", menu_path(menu.id), method: "delete", data: {confirm: "「#{menu.name}」を削除しますか？"}
+          = link_to  "編集 ", edit_menu_path(menu.id), class: "btn btn-primary"
+          = link_to  "削除 ", menu_path(menu.id), method: "delete", data: {confirm: "「#{menu.name}」を削除しますか？"}, class: "btn btn-danger"
         | ★ #{menu.favorites.count}  ❤︎ #{menu.likes.count} 
         = link_to "#{menu.name}", menu_path(menu)
         

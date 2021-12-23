@@ -16,8 +16,8 @@ ul
 
 - if admin? || current_user?(@user)
   ul.btn-box
-    li= link_to "編集", edit_user_path(@user)
-    li= link_to "削除", user_path, method: "delete", data: { confirm: "本当に「#{@user.name}」を削除しますか？"}
+    li= link_to "編集", edit_user_path(@user), class: "btn btn-primary"
+    li= link_to "削除", user_path, method: "delete", data: { confirm: "本当に「#{@user.name}」を削除しますか？"}, class: "btn btn-danger"
 
 -if @likes.present?
   h3

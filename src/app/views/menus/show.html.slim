@@ -32,8 +32,8 @@ ul.menu-show
 - if logged_in?
   - if admin? || @menu.shop.user_id == current_user.id 
     ul.btn-box
-      li = link_to  "編集", edit_menu_path(@menu)
-      li = link_to  "削除", menu_path, method: "delete", data: {confirm: "「#{@menu.name}」を削除しますか？"}
+      li = link_to  "編集", edit_menu_path(@menu), class: "btn btn-primary"
+      li = link_to  "削除", menu_path, method: "delete", data: {confirm: "「#{@menu.name}」を削除しますか？"}, class: "btn btn-danger"
 
 - @menu.comments.each do |comment|
   ul.comment-block
@@ -45,7 +45,7 @@ ul.menu-show
       = comment.content
       - if admin? || current_user_item?(comment)
         | &nbsp&nbsp
-        = link_to  "削除", menu_comment_path(@menu.id,comment.id), method: "delete", data: {confirm: "コメントを削除しますか？"}
+        = link_to  "削除", menu_comment_path(@menu.id,comment.id), method: "delete", data: {confirm: "コメントを削除しますか？"}, class: "btn btn-danger"
     - comment.replies.each do |reply|
       ul
         li
@@ -56,12 +56,12 @@ ul.menu-show
           = reply.content
           | &nbsp&nbsp
           - if admin? || current_user_item?(reply)
-            = link_to  "削除", comment_reply_path(comment.id, reply.id), method: "delete", data: {confirm: "リプライを削除しますか？"}
+            = link_to  "削除", comment_reply_path(comment.id, reply.id), method: "delete", data: {confirm: "リプライを削除しますか？"}, class: "btn btn-danger"
     -if logged_in?
       = form_with url: comment_replies_url(comment, comment), class: "reply-form" do |ff|
         = ff.text_area :content, class: "contentbox"
-        = ff.submit "リプライする", class: "form_submit"
+        = ff.submit "リプライする", class: "form_submit btn btn-info "
 -if logged_in?
   = form_with model: [@menu, @comment], class: "comment-form" do |f|
     = f.text_area :content, class: "contentbox"
-    = f.submit "コメントする", class: "form_submit"
+    = f.submit "コメントする", class: "form_submit btn btn-info "

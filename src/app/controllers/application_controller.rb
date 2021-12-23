@@ -28,4 +28,17 @@ class ApplicationController < ActionController::Base
                   danger: '権限がありません'
     end
   end
+
+  # 住所入力関連
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.permit(:sign_up, keys: %i[
+                                        email
+                                        name
+                                        postcode
+                                        prefecture_name
+                                        address_city
+                                        address_street
+                                        address_building
+                                      ])
+  end
 end

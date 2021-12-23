@@ -87,6 +87,7 @@ p {
   flex-wrap: wrap;
   justify-content: center;
   margin: 0 auto !important;
+  padding-top: 10px;
   margin-bottom: 30px;
   li {
     margin: 0px 20px;
@@ -216,4 +217,12 @@ p {
 .favorite-menu {
   border-top: 1px dotted #727272;
   padding: 15px 0px 5px 0px;
+}
+
+.btn {
+  font-size: 10px;
+  padding: 10px 20px;
+  margin-right: 10px;
+  margin-top: 5px;
+  margin-bottom: 10px;
 }
