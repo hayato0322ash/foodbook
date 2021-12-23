@@ -2,10 +2,9 @@ div.nav-box
   - if logged_in?
     div.Current-User-Box
       span
-        | ユーザー名：
-        = link_to "#{current_user.name}", user_path(current_user)
+        = link_to "#{current_user.name}", user_path(current_user), class: "btn btn-primary"
       - if admin?
-        p
+        p.btn.btn-danger
           | ※管理者がログイン中
   ul.navbar-nav.ml-auto 
     - if admin? && logged_in?
