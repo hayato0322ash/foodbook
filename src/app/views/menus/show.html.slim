@@ -1,5 +1,5 @@
-- provide :title, "#{@menu.name}"
-
+- provide :title, "#{@menu.name}" 
+= image_tag @menu.image.thumb.url, class: "menu-img"  
 ul.menu-show
   ul.menu-LikeFavo-btn
     - if logged_in?
@@ -37,6 +37,7 @@ ul.menu-show
 
 - @menu.comments.each do |comment|
   ul.comment-block
+
     li
       = link_to  "#{@users.find(comment.user_id).name}", user_path(@users.find(comment.user_id)) 
       | &nbsp&nbsp
