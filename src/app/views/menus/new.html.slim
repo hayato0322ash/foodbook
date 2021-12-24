@@ -19,6 +19,9 @@
     .form-group
       = f.label :evaluation, '評価'
       = f.number_field :evaluation, class: 'form-control'
+    .forem-group 
+      = f.label :image, "メニュー画像"
+      = f.file_field :image
     = f.submit '登録する', class: 'btn btn-primary', data: {confirm: "新規メニュー登録しますか？"}
     
 

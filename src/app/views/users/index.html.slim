@@ -2,8 +2,8 @@
 = paginate @users
 - @users.each do |user|
   ul.user_data  
-    li= link_to user_path(current_user) do 
-      = image_tag user.image.thumb20.url, class:"current-user-icon"  
+    li= link_to user_path(user) do 
+      = image_tag user.image.thumb100.url, class:"current-user-icon"  
     li= link_to user.name, user_path(user)
     -if user.admin
       li= "管理者権限：あり"

@@ -1,15 +1,10 @@
 - provide :title, 'メニュー一覧'
 = paginate @menus
-
+div.menus-index
 - @menus.each do |menu|
-  ul.menu-profile
-    / li= "メニューID：#{menu.id}"
-    li
-      | メニュー名：
+  div.menus-item
+    = link_to menu_path(menu) do
+      = image_tag menu.image.thumb.url, class: "menu-thumb-img" 
       = link_to "#{menu.name}", menu_path(menu)
-    / li
-    /   | 店舗名：
-    /   = link_to  "#{menu.shop.name}", shop_path(menu.shop) 
-    / li= "価格：#{menu.price}"
-    / li= "評価：#{menu.evaluation}"
+
 = paginate @menus

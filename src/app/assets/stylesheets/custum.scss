@@ -140,7 +140,6 @@ p {
   display: flex;
   align-items: center;
   padding: 10px 0px;
-  border-top:1px solid #b1b1b1 ;
   
 }
 
@@ -155,7 +154,6 @@ p {
   padding: 25px 0px 10px 0px;
 }
 .comment-block {
-  border-top: 1px dotted #b1b1b1;
   padding: 15px 0px 5px 0px;
 }
 .reply-form {
@@ -176,7 +174,7 @@ p {
 .comment-form {
   display: flex;
   flex-direction: column;
-  border-top: 1.4px solid #727272;
+
   padding-top: 20px;
   .contentbox{
     width: 30%;
@@ -230,8 +228,10 @@ p {
 }
 
 .favorite-menu {
-  border-top: 1px dotted #727272;
+  display: flex;
+  align-items: center;
   padding: 15px 0px 5px 0px;
+  margin-bottom: 10px;
 }
 
 .btn {
@@ -262,4 +262,18 @@ p {
   border-radius: 100%;
   margin-right: 10px;
   border: #eaeaea 2px solid;
+}
+.menus-index {
+  display: flex;
+  flex-direction: column;
+}
+.menus-item {
+  margin-bottom: 10px;
+}
+.menu-img {
+  max-width: 100%;
+}
+.menu-thumb-img {
+  width: 100px;
+  margin-right: 10px;
 }
