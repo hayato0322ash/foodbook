@@ -1,14 +1,10 @@
 - provide :title, "ユーザー一覧"
 = paginate @users
 - @users.each do |user|
-  ul.user_data
-    li= "ユーザーID：#{user.id}"
-    li 
-      | ユーザー名：
-      = link_to "#{user.name}", user_path(user)
-    / li= "性別：#{user.sex}"
-    / li= "生年月日：#{user.birthday.strftime("%Y年%m月%d日")}"
-    / li= "メールアドレス：#{user.email}"
+  ul.user_data  
+    li= link_to user_path(current_user) do 
+      = image_tag user.image.thumb20.url, class:"current-user-icon"  
+    li= link_to user.name, user_path(user)
     -if user.admin
       li= "管理者権限：あり"
 = paginate @users

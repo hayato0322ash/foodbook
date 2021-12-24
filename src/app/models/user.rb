@@ -14,4 +14,7 @@ class User < ApplicationRecord
   validates :admin, inclusion: { in: [true, false] }
 
   has_secure_password
+
+  # carrierwave画像アップロード用
+  mount_uploader :image, ImageUploader
 end
