@@ -7,9 +7,9 @@ class UsersController < ApplicationController
   end
 
   def show
-    @likes = Like.where(user_id: params[:id])
+    @likes = Like.where(user_id: @user)
     @user_shops = Shop.where(user_id: @user.id)
-    @favorites = Favorite.where(user_id: current_user.id)
+    @favorites = Favorite.where(user_id: @user.id)
   end
 
   def new
@@ -18,9 +18,12 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new user_params
-    return redirect_to user_url(@user), success: '登録完了しました' if @user.save
-
-    render :new
+    if @user.save
+      log_in(@user)
+      redirect_to user_url(@user), success: '登録完了しました'
+    else
+      render :new
+    end
   end
 
   def edit; end
@@ -50,7 +53,7 @@ class UsersController < ApplicationController
 
   def user_params
     # dateについて調べる QQQ
-    params.require(:user).permit(:name, :email, :password, :password_confirmation, :sex, :birthday, :'date(1i)',
+    params.require(:user).permit(:name, :email, :password, :password_confirmation, :sex, :birthday, :image, :'date(1i)',
                                  :'date(2i)',
                                  :'date(3i)',
                                  :receiving_method,

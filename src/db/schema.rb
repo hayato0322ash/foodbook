@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_23_070609) do
+ActiveRecord::Schema.define(version: 2021_12_23_111846) do
 
   create_table "comments", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "menu_id"
@@ -76,6 +76,7 @@ ActiveRecord::Schema.define(version: 2021_12_23_070609) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "password_digest"
     t.boolean "admin", default: false
+    t.string "image"
   end
 
 end

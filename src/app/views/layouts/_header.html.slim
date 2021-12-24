@@ -1,8 +1,10 @@
 div.nav-box
   - if logged_in?
     div.Current-User-Box
-      span
-        = link_to "#{current_user.name}", user_path(current_user), class: "btn btn-primary"
+      span.current-user-link
+        = link_to user_path(current_user) do 
+          = image_tag current_user.image.thumb20.url, class:"current-user-icon"  
+        = link_to "#{current_user.name}", user_path(current_user), class: "white"
       - if admin?
         p.btn.btn-danger
           | ※管理者がログイン中

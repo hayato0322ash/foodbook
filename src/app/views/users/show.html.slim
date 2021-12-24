@@ -2,6 +2,7 @@
 ul
   -if @user.admin?
     li= "管理者権限：あり"
+  li= image_tag @user.image.thumb100.url, class: "user-icon" 
   li= "名前：#{@user.name}"
   li= "性別：#{@user.sex}" 
   - birthday = @user.birthday

@@ -34,6 +34,11 @@ textarea {
 
 /* typography */
 
+ol, ul, dl {
+  margin-top: 0;
+  margin-bottom: 0!important;
+}
+
 h1, h2, h3, h4, h5, h6 {
   line-height: 1;
 }
@@ -55,6 +60,13 @@ h2 {
 
 p {
   font-size: 1.1em;
+}
+.white {
+  color:white;
+  &:hover {
+    color: white;
+    text-decoration: none;
+  }
 }
 
 /* miscellaneous */
@@ -125,10 +137,13 @@ p {
 }
 
 .user_data {
-  padding: 25px 0px 10px 0px;
+  display: flex;
+  align-items: center;
+  padding: 10px 0px;
   border-top:1px solid #b1b1b1 ;
   
 }
+
 .shop-profile li {
   width: 50%;
   border-top: 1px solid #b1b1b1;
@@ -225,4 +240,26 @@ p {
   margin-right: 10px;
   margin-top: 5px;
   margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+}
+.current-user-link {
+  font-size: 10px;
+  padding: 5px 9px;
+  margin-right: 10px;
+  margin-top: 5px;
+  display: flex;
+  align-items: center;
+  border-radius: 100px!important;
+  background-color: #1fbb53;
+}
+.current-user-icon {
+  border-radius: 100%;
+  margin-right: 5px;
+  border: #eaeaea 2px solid;
+}
+.user-icon {
+  border-radius: 100%;
+  margin-right: 10px;
+  border: #eaeaea 2px solid;
 }
