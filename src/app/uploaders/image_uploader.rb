@@ -9,8 +9,21 @@ class ImageUploader < CarrierWave::Uploader::Base
   process convert: 'jpg'
 
   # サムネイルを生成する設定
-  version :thumb do
+
+  version :thumb1000 do
+    process resize_to_limit: [1000, 1000]
+  end
+
+  version :thumb800 do
+    process resize_to_limit: [800, 800]
+  end
+
+  version :thumb300 do
     process resize_to_limit: [300, 300]
+  end
+
+  version :thumb200 do
+    process resize_to_limit: [200, 200]
   end
 
   version :thumb100 do
@@ -26,7 +39,7 @@ class ImageUploader < CarrierWave::Uploader::Base
   end
 
   def default_url(*_args)
-    [version_name, 'default_user.png'].compact.join('_')
+    [version_name, 'default.png'].compact.join('_')
   end
 
   # jpg,jpeg,gif,pngしか受け付けない
