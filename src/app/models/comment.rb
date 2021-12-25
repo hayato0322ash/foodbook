@@ -4,4 +4,6 @@ class Comment < ApplicationRecord
   has_many :replies, foreign_key: 'comment_id', dependent: :destroy
 
   validates :content, presence: true
+
+  mount_uploader :image, ImageUploader
 end

@@ -45,6 +45,7 @@ evaluation = 5
 Menu.create!(shop_id: shop_id,
              name: name,
              price: price,
+             image: File.open('./public/uploads/c0069fdc-a114-42ab-be46-97c547fd5764.jpg'),
              evaluation: evaluation)
 name = 'コーヒージェリーフラペチーノ'
 price = 540
@@ -52,6 +53,7 @@ evaluation = 5
 Menu.create!(shop_id: shop_id,
              name: name,
              price: price,
+             image: File.open('./public/uploads/6b348466-c843-481c-8c70-b9fd44095949.jpg'),
              evaluation: evaluation)
 
 # ドトール
@@ -62,6 +64,7 @@ evaluation = 5
 Menu.create!(shop_id: shop_id,
              name: name,
              price: price,
+             image: File.open('./public/uploads/2796cc44-aaf0-4f9a-89f9-cbefaec95ac9.jpg'),
              evaluation: evaluation)
 name = '沖縄黒糖ラテ'
 price = 300
@@ -69,6 +72,7 @@ evaluation = 5
 Menu.create!(shop_id: shop_id,
              name: name,
              price: price,
+             image: File.open('./public/uploads/4b85fa5c-8296-4e13-8c11-a330064be48b.jpg'),
              evaluation: evaluation)
 name = '抹茶ラテタピオカ入り'
 price = 300

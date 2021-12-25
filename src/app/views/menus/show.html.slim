@@ -36,33 +36,45 @@ ul.menu-show
       li = link_to  "削除", menu_path, method: "delete", data: {confirm: "「#{@menu.name}」を削除しますか？"}, class: "btn btn-danger"
 
 - @menu.comments.each do |comment|
-  ul.comment-block
-
-    li
-      = link_to  "#{@users.find(comment.user_id).name}", user_path(@users.find(comment.user_id)) 
-      | &nbsp&nbsp
-      = date_format(comment.created_at)
-    li
-      = comment.content
-      - if admin? || current_user_item?(comment)
-        | &nbsp&nbsp
-        = link_to  "削除", menu_comment_path(@menu.id,comment.id), method: "delete", data: {confirm: "コメントを削除しますか？"}, class: "btn btn-danger"
-    - comment.replies.each do |reply|
-      ul
-        li
-          = link_to  "#{@users.find(reply.user_id).name}", user_path(@users.find(reply.user_id))
-          | &nbsp&nbsp
-          = date_format(reply.created_at)
-        li
-          = reply.content
-          | &nbsp&nbsp
-          - if admin? || current_user_item?(reply)
-            = link_to  "削除", comment_reply_path(comment.id, reply.id), method: "delete", data: {confirm: "リプライを削除しますか？"}, class: "btn btn-danger"
+  div.comment-box 
+    ul.comment-block
+      li
+        div.Current-User-Box
+          span.current-user-link
+            = link_to user_path(@users.find(comment.user_id)) do 
+              = image_tag @users.find(comment.user_id).image.thumb20.url, class:"current-user-icon"  
+              = link_to  "#{@users.find(comment.user_id).name}", user_path(@users.find(comment.user_id)), class: "white"
+          = date_format(comment.created_at)
+          - if admin? || current_user_item?(comment)
+            | &nbsp&nbsp
+            = link_to  "削除", menu_comment_path(@menu.id,comment.id), method: "delete", data: {confirm: "コメントを削除しますか？"}, class: "btn btn-danger"
+      li
+        = comment.content
+      - if comment.image.present?
+        li  = image_tag comment.image.thumb200.url 
+    div.reply-block
+      - comment.replies.each do |reply|
+        ul.reply-item
+          li
+            div.Current-User-Box
+              span.current-user-link
+                = link_to user_path(@users.find(reply.user_id)) do 
+                  = image_tag @users.find(reply.user_id).image.thumb20.url, class:"current-user-icon"  
+                  = link_to  "#{@users.find(reply.user_id).name}", user_path(@users.find(reply.user_id)), class: "white"
+              = date_format(reply.created_at)
+              | &nbsp&nbsp
+              - if admin? || current_user_item?(reply)
+                = link_to  "削除", comment_reply_path(comment.id, reply.id), method: "delete", data: {confirm: "リプライを削除しますか？"}, class: "btn btn-danger"
+          li
+            = reply.content
+          
     -if logged_in?
       = form_with url: comment_replies_url(comment, comment), class: "reply-form" do |ff|
         = ff.text_area :content, class: "contentbox"
         = ff.submit "リプライする", class: "form_submit btn btn-info "
 -if logged_in?
   = form_with model: [@menu, @comment], class: "comment-form" do |f|
+    = f.label :image, "画像添付"
+    = f.file_field :image
     = f.text_area :content, class: "contentbox"
     = f.submit "コメントする", class: "form_submit btn btn-info "

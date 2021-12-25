@@ -6,7 +6,7 @@ class ShopsController < ApplicationController
   end
 
   def show
-    @menus = Menu.where(shop_id: params[:id]).page(params[:page]).per(5)
+    @menus = Menu.where(shop_id: params[:id]).page(params[:page]).per(6)
     @menus_count = @shop.menus.count
     @user = @shop.user
   end

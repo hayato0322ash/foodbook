@@ -17,7 +17,7 @@ class CommentsController < ApplicationController
   private
 
   def comment_params
-    params.require(:comment).permit(:content).merge(user_id: session[:user_id], menu_id: params[:menu_id])
+    params.require(:comment).permit(:content, :image).merge(user_id: session[:user_id], menu_id: params[:menu_id])
   end
 
   def set_menu
