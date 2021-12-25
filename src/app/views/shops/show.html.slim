@@ -1,5 +1,6 @@
 - provide :title, "#{@shop.name}"
 ul.shop_profile
+  li= image_tag  @shop.image.thumb1000.url, class: "shop-img" 
   li= "メニュー数：#{@menus_count}"
   li= "店舗名： #{@shop.name} "
   li= "営業時間：#{@shop.open_hour.strftime("%H:%M")} ~ #{@shop.close_hour.strftime("%H:%M")}"
@@ -16,19 +17,21 @@ ul.shop_profile
 - if @shop.menus.present?
   h3
     = "メニュー表"
-  - @menus.each do |menu|  
-    ul.menu-profile
-      / li= "メニューID：#{menu.id}"
-      li
+  ul.menus-grid
+    - @menus.each do |menu|  
+      ul.menu-profile
+        li = image_tag menu.image.thumb200.url, class: "menu-grid" 
+        li
+          | ★ #{menu.favorites.count}  ❤︎ #{menu.likes.count} 
+          = link_to "#{menu.name}", menu_path(menu)
         - if admin? || menu.shop.user_id == current_user.id
-          = link_to  "編集 ", edit_menu_path(menu.id), class: "btn btn-primary"
-          = link_to  "削除 ", menu_path(menu.id), method: "delete", data: {confirm: "「#{menu.name}」を削除しますか？"}, class: "btn btn-danger"
-        | ★ #{menu.favorites.count}  ❤︎ #{menu.likes.count} 
-        = link_to "#{menu.name}", menu_path(menu)
+          li
+            = link_to  "編集 ", edit_menu_path(menu.id), class: "btn btn-primary"
+            = link_to  "削除 ", menu_path(menu.id), method: "delete", data: {confirm: "「#{menu.name}」を削除しますか？"}, class: "btn btn-danger"
+          
+          / li= "価格：#{menu.price}"
+          / li= "評価：#{menu.evaluation}"
         
-        / li= "価格：#{menu.price}"
-        / li= "評価：#{menu.evaluation}"
-      
 
 
 

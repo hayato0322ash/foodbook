@@ -4,7 +4,7 @@ div.menus-index
 - @menus.each do |menu|
   div.menus-item
     = link_to menu_path(menu) do
-      = image_tag menu.image.thumb.url, class: "menu-thumb-img" 
+      = image_tag menu.image.thumb300.url, class: "menu-thumb-img" 
       = link_to "#{menu.name}", menu_path(menu)
 
 = paginate @menus

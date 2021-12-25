@@ -6,6 +6,8 @@ class Shop < ApplicationRecord
   validates :open_hour, presence: true
   validates :close_hour, presence: true
 
+  mount_uploader :image, ImageUploader
+
   # 住所入力関連
   include JpPrefecture
   jp_prefecture :prefecture_code
