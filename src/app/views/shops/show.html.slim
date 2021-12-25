@@ -8,10 +8,11 @@ ul.shop_profile
   li
     | 店舗オーナー：
     = link_to @user.name, user_path(@user)
-- if admin? || @shop.user_id == current_user.id
-  ul.btn-box
-    li = link_to  "編集", edit_shop_path(@shop), class: "btn btn-primary"
-    li = link_to  "削除", shop_path, method: "delete", data: {confirm: "「#{@shop.name}」を削除しますか？"}, class: "btn btn-danger"
+- if logged_in?
+  - if admin? || @shop.user_id == current_user.id
+    ul.btn-box
+      li = link_to  "編集", edit_shop_path(@shop), class: "btn btn-primary"
+      li = link_to  "削除", shop_path, method: "delete", data: {confirm: "「#{@shop.name}」を削除しますか？"}, class: "btn btn-danger"
 
 = paginate @menus
 - if @shop.menus.present?
@@ -26,13 +27,14 @@ ul.shop_profile
         li
           | ★ #{menu.favorites.count}  ❤︎ #{menu.likes.count} 
           = link_to "#{menu.name}", menu_path(menu)
-        - if admin? || menu.shop.user_id == current_user.id
-          li
-            = link_to  "編集 ", edit_menu_path(menu.id), class: "btn btn-primary"
-            = link_to  "削除 ", menu_path(menu.id), method: "delete", data: {confirm: "「#{menu.name}」を削除しますか？"}, class: "btn btn-danger"
-          
-          / li= "価格：#{menu.price}"
-          / li= "評価：#{menu.evaluation}"
+        - if logged_in?
+          - if admin? || menu.shop.user_id == current_user.id
+            li
+              = link_to  "編集 ", edit_menu_path(menu.id), class: "btn btn-primary"
+              = link_to  "削除 ", menu_path(menu.id), method: "delete", data: {confirm: "「#{menu.name}」を削除しますか？"}, class: "btn btn-danger"
+            
+            / li= "価格：#{menu.price}"
+            / li= "評価：#{menu.evaluation}"
         
 
 
