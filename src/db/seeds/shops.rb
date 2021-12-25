@@ -16,6 +16,7 @@ Shop.create!(name: name,
              address_city: address_city,
              address_street: address_street,
              address_building: address_building,
+             image: File.open('./public/uploads/06a7092d-888a-40c1-903f-6bc1007f337d.jpg'),
              user_id: user_id)
 name = 'タリーズコーヒーショップ 所沢店'
 Shop.create!(name: name,

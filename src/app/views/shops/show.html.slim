@@ -20,7 +20,9 @@ ul.shop_profile
   ul.menus-grid
     - @menus.each do |menu|  
       ul.menu-profile
-        li = image_tag menu.image.thumb200.url, class: "menu-grid" 
+        li 
+          = link_to menu_path(menu)
+            = image_tag menu.image.thumb200.url, class: "menu-grid" 
         li
           | ★ #{menu.favorites.count}  ❤︎ #{menu.likes.count} 
           = link_to "#{menu.name}", menu_path(menu)

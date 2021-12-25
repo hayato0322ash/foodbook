@@ -5,7 +5,7 @@ evaluation = 3
 Menu.create!(shop_id: shop_id,
              name: name,
              price: price,
-             image: '15298ded-d052-468d-b0ce-a65ab20fea47.jpg',
+             image: File.open('./public/uploads/47defad3-7113-450f-899f-c4c1cf690e8f.jpg'),
              evaluation: evaluation)
 name = 'キャラメルフラペチーノ'
 price = 540
@@ -13,7 +13,7 @@ evaluation = 5
 Menu.create!(shop_id: shop_id,
              name: name,
              price: price,
-             image: '155ca0cd-e3fc-4342-bac1-c70c772aa4fb.jpg',
+             image: File.open('./public/uploads/88fdf91f-8fbb-43a0-87af-d85a1b40e37a.jpg'),
              evaluation: evaluation)
 name = 'ダークモカチップフラペチーノ'
 price = 440
@@ -21,7 +21,7 @@ evaluation = 5
 Menu.create!(shop_id: shop_id,
              name: name,
              price: price,
-             image: '84acdc04-21c4-49ad-9ae7-059a6341d736.jpg',
+             image: File.open('./public/uploads/445feee9-a142-48e2-ad51-9634a95f8f5d.jpg'),
              evaluation: evaluation)
 name = '抹茶クリームフラペチーノ'
 price = 540
@@ -29,7 +29,7 @@ evaluation = 5
 Menu.create!(shop_id: shop_id,
              name: name,
              price: price,
-             image: '62eda890-934f-4577-abfc-b3e6a61ef31a.jpg',
+             image: File.open('./public/uploads/0f82c57d-9b6c-4364-9b15-f0700dcd855d.jpg'),
              evaluation: evaluation)
 name = 'カフェミスト'
 price = 320
@@ -37,7 +37,7 @@ evaluation = 5
 Menu.create!(shop_id: shop_id,
              name: name,
              price: price,
-             image: 'eedf3458-47bc-4171-b535-0b3f97b4925f.jpg',
+             image: File.open('./public/uploads/e243302f-32af-44e0-b6e2-5e48c5371893.jpg'),
              evaluation: evaluation)
 name = 'バニラクリームフラペチーノ'
 price = 540
