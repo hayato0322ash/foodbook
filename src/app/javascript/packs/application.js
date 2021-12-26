@@ -6,14 +6,18 @@
 //= require rails-ujs
 //= require activestorage
 //= require turbolinks 
-//= require jquery // turbolinksより下に記述
+
+//= require jquery
+//= require popper
+//= require bootstrap
 //= require_tree .
 
-import Rails from "@rails/ujs"
-import Turbolinks from "turbolinks"
-import * as ActiveStorage from "@rails/activestorage"
-import "channels"
+require("@rails/ujs").start()
+require("turbolinks").start()
+require("@rails/activestorage").start()
+require("channels")
+//以下の一文を追加
+require("jquery")
 
-Rails.start()
-Turbolinks.start()
-ActiveStorage.start()
+//以下の一文を追加
+require('hayato.js')
