@@ -1,9 +1,9 @@
 class RepliesController < ApplicationController
-  before_action :set_menu_comment, only: %i[create destroy]
+  before_action :set_menu_comment, only: %i[destroy]
   def create
     @reply = Reply.new reply_params
     if @reply.save
-      redirect_to menu_url(@comment.menu)
+      redirect_to menu_url(@reply.comment.menu)
     else
       flash.now[:alert] = 'リプライができませんでした'
       redirect_to root_url

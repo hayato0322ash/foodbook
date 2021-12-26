@@ -34,12 +34,28 @@ ul.menu-show
     ul.btn-box
       li = link_to  "編集", edit_menu_path(@menu), class: "btn btn-primary"
       li = link_to  "削除", menu_path, method: "delete", data: {confirm: "「#{@menu.name}」を削除しますか？"}, class: "btn btn-danger"
-
-- @menu.comments.each do |comment|
-  div.comment-box 
+-if logged_in?
+  button.btn.btn-primary data-bs-target="#commentModal" data-bs-toggle="modal" data-bs-whatever="@mdo" type="button"
+    | コメントする
+  #commentModal.modal.fade aria-hidden="true" aria-labelledby="commentModalLabel" tabindex="-1" 
+    .modal-dialog
+      .modal-content
+        .modal-header
+          h5#exampleModalLabel.modal-title 
+            | コメントする
+          button.btn-close aria-label="Close" data-bs-dismiss="modal" type="button" 
+        .modal-body
+          = form_with model: [@menu, @comment], class: "comment-form" do |f|
+            = f.label :image, "画像添付"
+            = f.file_field :image
+            = f.text_area :content, class: "form-control contentbox",id:"message-text"
+            = f.submit "コメントする", class: "form_submit btn btn-primary "
+          button.btn.btn-secondary data-bs-dismiss="modal" type="button"  Close
+- @menu.comments.reverse.each do |comment|
+  .comment-box 
     ul.comment-block
       li
-        div.Current-User-Box
+        .Current-User-Box
           span.current-user-link
             = link_to user_path(@users.find(comment.user_id)) do 
               = image_tag @users.find(comment.user_id).image.thumb20.url, class:"current-user-icon"  
@@ -52,11 +68,14 @@ ul.menu-show
         = comment.content
       - if comment.image.present?
         li  = image_tag comment.image.thumb200.url 
-    div.reply-block
-      - comment.replies.each do |reply|
+    .reply-block
+      -if logged_in?
+        button.btn.btn-primary data-bs-target="#comment#{comment.id}_replyModal" data-bs-toggle="modal" data-bs-whatever="@mdo" type="button"
+          | リプライする
+      - comment.replies.reverse.each do |reply|
         ul.reply-item
           li
-            div.Current-User-Box
+            .Current-User-Box
               span.current-user-link
                 = link_to user_path(@users.find(reply.user_id)) do 
                   = image_tag @users.find(reply.user_id).image.thumb20.url, class:"current-user-icon"  
@@ -67,14 +86,20 @@ ul.menu-show
                 = link_to  "削除", comment_reply_path(comment.id, reply.id), method: "delete", data: {confirm: "リプライを削除しますか？"}, class: "btn btn-danger"
           li
             = reply.content
-          
-    -if logged_in?
-      = form_with url: comment_replies_url(comment, comment), class: "reply-form" do |ff|
-        = ff.text_area :content, class: "contentbox"
-        = ff.submit "リプライする", class: "form_submit btn btn-info "
--if logged_in?
-  = form_with model: [@menu, @comment], class: "comment-form" do |f|
-    = f.label :image, "画像添付"
-    = f.file_field :image
-    = f.text_area :content, class: "contentbox"
-    = f.submit "コメントする", class: "form_submit btn btn-info "
+      div.modal.fade aria-hidden="true" aria-labelledby="comment#{comment.id}_replyModalLabel" tabindex="-1" id="comment#{comment.id}_replyModal"
+        .modal-dialog
+          .modal-content
+            .modal-header
+              h5#replyModalLabel.modal-title 
+                | リプライする
+              button.btn-close aria-label="Close" data-bs-dismiss="modal" type="button" 
+            .modal-body
+              = form_with url: comment_replies_url(comment), class: "reply-form" do |ff|
+                = ff.text_area :content, class: "contentbox"
+                = ff.submit "リプライする", class: "form_submit btn btn-info"
+              button.btn.btn-secondary data-bs-dismiss="modal" type="button"  Close
+
+
+
+
+    
