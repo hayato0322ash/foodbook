@@ -38,11 +38,12 @@ ul.menu-show
   button.btn.btn-primary data-bs-target="#commentModal" data-bs-toggle="modal" data-bs-whatever="@mdo" type="button"
     | コメントする
   #commentModal.modal.fade aria-hidden="true" aria-labelledby="commentModalLabel" tabindex="-1" 
-    .modal-dialog
+    .modal-dialog.modal-dialog-centered
       .modal-content
         .modal-header
           h5#exampleModalLabel.modal-title 
-            | コメントする
+            = image_tag  @menu.image.thumb30.url 
+            | 「#{@menu.name}」にコメントする
           button.btn-close aria-label="Close" data-bs-dismiss="modal" type="button" 
         .modal-body
           = form_with model: [@menu, @comment], class: "comment-form" do |f|
@@ -87,13 +88,18 @@ ul.menu-show
           li
             = reply.content
       div.modal.fade aria-hidden="true" aria-labelledby="comment#{comment.id}_replyModalLabel" tabindex="-1" id="comment#{comment.id}_replyModal"
-        .modal-dialog
+        .modal-dialog.modal-dialog-centered
           .modal-content
             .modal-header
               h5#replyModalLabel.modal-title 
                 | リプライする
               button.btn-close aria-label="Close" data-bs-dismiss="modal" type="button" 
             .modal-body
+              .modal-comment-content
+                - if comment.image.present?
+                  = image_tag comment.image.thumb100.url, class: "modal-comment-content-img"
+                p.modal-comment-content-text
+                  = comment.content
               = form_with url: comment_replies_url(comment), class: "reply-form" do |ff|
                 = ff.text_area :content, class: "contentbox"
                 = ff.submit "リプライする", class: "form_submit btn btn-info"

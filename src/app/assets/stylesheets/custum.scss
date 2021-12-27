@@ -312,3 +312,20 @@ p {
 .menu-grid {
   width: 100%;
 }
+.modal-title {
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+}
+.modal-comment-content {
+  display: flex;
+
+}
+.modal-comment-content-img {
+  max-height: 100px;
+  margin-right: 10px;
+}
+.modal-comment-content-text {
+  width: 70%;
+  font-size: 14px;
+}
