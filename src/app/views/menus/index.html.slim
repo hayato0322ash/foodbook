@@ -1,10 +1,21 @@
-- provide :title, 'メニュー一覧'
+- provide :title, 'メニューを探す'
 = paginate @menus
-div.menus-index
-- @menus.each do |menu|
-  div.menus-item
-    = link_to menu_path(menu) do
-      = image_tag menu.image.thumb300.url, class: "menu-thumb-img" 
-      = link_to "#{menu.name}", menu_path(menu)
+ul.menus-grid
+  - @menus.each do |menu|  
+    ul.menu-grid-item
+      li 
+        = link_to menu_path(menu)
+          = image_tag menu.image.thumb200.url, class: "menu-grid-img" 
+      li.user-show-menu-LFs
+        .menu-grid-heart-box
+          i.fas.fa-heart
+            = " #{menu.likes.count}"
+        .menu-grid-star-box
+          i.fas.fa-star
+            = " #{menu.favorites.count}"
+      li.user-show-menu-name
+        = link_to menu.name, menu_path(menu)
+
+
 
 = paginate @menus

@@ -1,111 +1,159 @@
 - provide :title, "#{@menu.name}" 
-= image_tag @menu.image.thumb300.url, class: "menu-img"  
+
 ul.menu-show
-  ul.menu-LikeFavo-btn
-    - if logged_in?
-      - if @likes.find_by(user_id: current_user.id).blank?
-        li
-          = link_to "❤︎ ", menu_likes_path(@menu), method: "post", class: "like-gray", remote: true
-          | #{@likes.count}
+  = image_tag @menu.image.thumb300.url, class: "menu-img"  
+  ul.menu-profile
+    ul.menu-LikeFavo-btn
+      - if logged_in?
+        - if @likes.find_by(user_id: current_user.id).blank?
+          li
+            = link_to menu_likes_path(@menu), method: "post", class: "like like-gray", remote: true do 
+              i.far.fa-heart
+              |  #{@likes.count}
+        - else 
+          li 
+            = link_to menu_like_path(@menu), method: "delete", class: "like like-pink", remote: true do 
+              i.fas.fa-heart
+              |  #{@likes.count}
+        -if @favorites.find_by(user_id: current_user.id).blank?
+          li
+            = link_to menu_favorites_path(@menu), method: "post", class: "favo favo-gray", remote: true do
+              i.far.fa-star
+              |  #{@favorites.count}
+        -else
+          li
+            = link_to menu_favorite_path(@menu), method: "delete", class: "favo favo-orange", remote: true do
+              i.fas.fa-star
+              |  #{@favorites.count}
       - else 
-        li 
-          = link_to "❤︎ ", menu_like_path(@menu), method: "delete", class: "like-pink", remote: true
-          | #{@likes.count}
-      -if @favorites.find_by(user_id: current_user.id).blank?
         li
-          = link_to "★ ", menu_favorites_path(@menu), method: "post", class: "favo-gray", remote: true
-          | #{@favorites.count}
-      -else
+          i.fas.fa-heart
+            = " #{@likes.count}"
         li
-          = link_to  "★ ", menu_favorite_path(@menu), method: "delete", class: "favo-orange", remote: true
-          | #{@favorites.count}
-    - else 
-      p = "❤︎ #{@likes.count}"
-      p = "★ #{@favorites.count}"
-  / li= "メニューID：#{@menu.id}"
-  li 
-    | 店舗名： 
-    = link_to "#{@menu.shop.name}", shop_path(@menu.shop)
-  / li= "メニュー名：#{@menu.name}"
-  li= "価格：#{@menu.price}円"
-  li= "評価：#{@menu.evaluation}点"
-- if logged_in?
-  - if admin? || @menu.shop.user_id == current_user.id 
-    ul.btn-box
-      li = link_to  "編集", edit_menu_path(@menu), class: "btn btn-primary"
-      li = link_to  "削除", menu_path, method: "delete", data: {confirm: "「#{@menu.name}」を削除しますか？"}, class: "btn btn-danger"
+          i.fas.fa-star 
+            = " #{@favorites.count}"
+    li 
+      | 店舗名： 
+      = link_to "#{@menu.shop.name}", shop_path(@menu.shop)
+    li= "価格：#{@menu.price}円"
+    li= "評価：#{@menu.evaluation}点"
+    - if logged_in?
+      - if admin? || @menu.shop.user_id == current_user.id 
+        ul.btn-box
+          button.btn.btn-primary data-bs-target="#menuModal" data-bs-toggle="modal" data-bs-whatever="@mdo" type="button"
+            i.far.fa-edit &nbsp編集
 -if logged_in?
-  button.btn.btn-primary data-bs-target="#commentModal" data-bs-toggle="modal" data-bs-whatever="@mdo" type="button"
-    | コメントする
-  #commentModal.modal.fade aria-hidden="true" aria-labelledby="commentModalLabel" tabindex="-1" 
-    .modal-dialog.modal-dialog-centered
-      .modal-content
-        .modal-header
-          h5#exampleModalLabel.modal-title 
-            = image_tag  @menu.image.thumb30.url 
-            | 「#{@menu.name}」にコメントする
-          button.btn-close aria-label="Close" data-bs-dismiss="modal" type="button" 
-        .modal-body
-          = form_with model: [@menu, @comment], class: "comment-form" do |f|
-            = f.label :image, "画像添付"
-            = f.file_field :image
-            = f.text_area :content, class: "form-control contentbox",id:"message-text"
-            = f.submit "コメントする", class: "form_submit btn btn-primary "
-          button.btn.btn-secondary data-bs-dismiss="modal" type="button"  Close
-- @menu.comments.reverse.each do |comment|
-  .comment-box 
-    ul.comment-block
-      li
-        .Current-User-Box
+  .current-comment-box
+    .menu-comment-form
+      .comment-user-icon 
+        = image_tag current_user.image.thumb50.url 
+      = form_with model: [@menu, @comment], class: "comment-form" do |f|
+        = f.label :image do
+          i.fas.fa-camera.comment-menu-camera
+            = f.file_field :image, style: 'display:none'
+        = f.text_area :content, class: "form-control comment-textarea", placeholder:"コメントを入力"
+        .btn-box
+          = f.submit "コメント", class: "form_submit btn btn-primary "
+  / button.btn.btn-primary data-bs-target="#commentModal" data-bs-toggle="modal" data-bs-whatever="@mdo" type="button"
+  /   i.far.fa-edit &nbspコメントする
+  / #commentModal.modal.fade aria-hidden="true" aria-labelledby="commentModalLabel" tabindex="-1" 
+  /   .modal-dialog.modal-dialog-centered
+  /     .modal-content
+  /       .modal-header
+  /         h5#exampleModalLabel.modal-title 
+  /           = image_tag  @menu.image.thumb30.url 
+  /           | 「#{@menu.name}」にコメントする
+  /         button.btn-close aria-label="Close" data-bs-dismiss="modal" type="button" 
+  /       .modal-body
+          / = form_with model: [@menu, @comment], class: "comment-form" do |f|
+          /   = f.label :image, "画像添付"
+          /   = f.file_field :image
+          /   = f.text_area :content, class: "form-control content-box",id:"message-text"
+          /   .btn-box
+          /     = f.submit "コメントする", class: "form_submit btn btn-primary "
+          /     button.btn.btn-secondary data-bs-dismiss="modal" type="button"
+          /       | Close
+.comment-box
+  - @menu.comments.reverse.each do |comment|
+      .comment-item aria-controls="panelsStayOpen-collapseOne#{comment.id}" aria-expanded="true" data-bs-target="#panelsStayOpen-collapseOne#{comment.id}" data-bs-toggle="collapse" type="button" 
+        li.Current-User-Box
           span.current-user-link
             = link_to user_path(@users.find(comment.user_id)) do 
               = image_tag @users.find(comment.user_id).image.thumb20.url, class:"current-user-icon"  
               = link_to  "#{@users.find(comment.user_id).name}", user_path(@users.find(comment.user_id)), class: "white"
           = date_format(comment.created_at)
+          
+          button.reply-btn aria-controls="panelsStayOpen-collapseOne#{comment.id}" aria-expanded="true" data-bs-target="#panelsStayOpen-collapseOne#{comment.id}" data-bs-toggle="collapse" type="button" 
+            = "返信 (#{comment.replies.count})"
           - if admin? || current_user_item?(comment)
-            | &nbsp&nbsp
-            = link_to  "削除", menu_comment_path(@menu.id,comment.id), method: "delete", data: {confirm: "コメントを削除しますか？"}, class: "btn btn-danger"
-      li
-        = comment.content
-      - if comment.image.present?
-        li  = image_tag comment.image.thumb200.url 
-    .reply-block
-      -if logged_in?
-        button.btn.btn-primary data-bs-target="#comment#{comment.id}_replyModal" data-bs-toggle="modal" data-bs-whatever="@mdo" type="button"
-          | リプライする
-      - comment.replies.reverse.each do |reply|
-        ul.reply-item
-          li
-            .Current-User-Box
-              span.current-user-link
-                = link_to user_path(@users.find(reply.user_id)) do 
-                  = image_tag @users.find(reply.user_id).image.thumb20.url, class:"current-user-icon"  
-                  = link_to  "#{@users.find(reply.user_id).name}", user_path(@users.find(reply.user_id)), class: "white"
-              = date_format(reply.created_at)
-              | &nbsp&nbsp
-              - if admin? || current_user_item?(reply)
-                = link_to  "削除", comment_reply_path(comment.id, reply.id), method: "delete", data: {confirm: "リプライを削除しますか？"}, class: "btn btn-danger"
-          li
-            = reply.content
-      div.modal.fade aria-hidden="true" aria-labelledby="comment#{comment.id}_replyModalLabel" tabindex="-1" id="comment#{comment.id}_replyModal"
-        .modal-dialog.modal-dialog-centered
-          .modal-content
-            .modal-header
-              h5#replyModalLabel.modal-title 
-                | リプライする
-              button.btn-close aria-label="Close" data-bs-dismiss="modal" type="button" 
-            .modal-body
-              .modal-comment-content
-                - if comment.image.present?
-                  = image_tag comment.image.thumb100.url, class: "modal-comment-content-img"
-                p.modal-comment-content-text
-                  = comment.content
-              = form_with url: comment_replies_url(comment), class: "reply-form" do |ff|
-                = ff.text_area :content, class: "contentbox"
-                = ff.submit "リプライする", class: "form_submit btn btn-info"
-              button.btn.btn-secondary data-bs-dismiss="modal" type="button"  Close
+            = link_to  "削除", menu_comment_path(@menu.id,comment.id), method: "delete", data: {confirm: "コメントを削除しますか？"}, class: "btn btn-danger", remote: true
+        li.comment-content
+          = comment.content
+        - if comment.image.present?
+          li.comment-img data-bs-target="#comment#{comment.id}_img_Modal" data-bs-toggle="modal"  type="button"
+            = image_tag comment.image.thumb200.url 
+          .image-modal.modal.fade aria-hidden="true" aria-labelledby="menuModalLabel" tabindex="-1" id="comment#{comment.id}_img_Modal" 
+            .image-modal-dialog.modal-dialog.modal-dialog-centered
+              .modal-content
+                .modal-header
+                  button.btn-close aria-label="Close" data-bs-dismiss="modal" type="button" 
+                .modal-body
+                  .comment-img-fullsize 
+                    = image_tag comment.image.url 
+        .accordion id="accordionPanelsStayOpen#{comment.id}"
+          .accordion-collapse.collapse.reply-block id="panelsStayOpen-collapseOne#{comment.id}"
+            - comment.replies.reverse.each do |reply|
+              ul.reply-item
+                li
+                  .Current-User-Box
+                    span.current-user-link
+                      = link_to user_path(@users.find(reply.user_id)) do 
+                        = image_tag @users.find(reply.user_id).image.thumb20.url, class:"current-user-icon"  
+                        = link_to  "#{@users.find(reply.user_id).name}", user_path(@users.find(reply.user_id)), class: "white"
+                    = date_format(reply.created_at)
+                    | &nbsp&nbsp
+                    - if admin? || current_user_item?(reply)
+                      = link_to  "削除", comment_reply_path(comment.id, reply.id), method: "delete", data: {confirm: "リプライを削除しますか？"}, class: "btn btn-danger", remote: true
+                li
+                  = reply.content
+            -if logged_in?
+              .current-comment-box
+                .menu-comment-form
+                  .comment-user-icon 
+                    = image_tag current_user.image.thumb50.url 
+                  = form_with url: comment_replies_url(comment), class: "reply-form" do |f|
+                    = f.text_area :content, class: "form-control comment-textarea", placeholder:"リプライを入力"
+                    .btn-box
+                      = f.submit "リプライ", class: "form_submit btn btn-primary "
 
-
-
-
-    
+-if logged_in?
+  #menuModal.modal.fade aria-hidden="true" aria-labelledby="menuModalLabel" tabindex="-1" 
+    .modal-dialog.modal-dialog-centered
+      .modal-content
+        .modal-header
+          h5#menuModalLabel.modal-title 
+            | 「#{@menu.name}」を編集する
+          button.btn-close aria-label="Close" data-bs-dismiss="modal" type="button" 
+        .modal-body
+          = form_with model: @menu, local: true do |f|
+            .form-group 
+              = f.label :image do
+                .change-img
+                  i.fas.fa-camera.change-menu-camera
+                  = image_tag @menu.image.url
+                  = f.file_field :image, style: 'display:none'
+            .form-group 
+              = f.label :name, 'メニュー名'
+              = f.text_field :name, class: 'form-control'
+            .form-group
+              = f.label :price, '価格'
+              = f.number_field :price, class: 'form-control'
+            .form-group
+              = f.label :evaluation, '評価'
+              = f.number_field :evaluation, class: 'form-control'
+            
+            .btn-box
+              = link_to  "メニューを削除する", menu_path, method: "delete", class:"btn btn-danger", data: {confirm: "「#{@menu.name}」を削除しますか？"}
+              = f.submit '編集する', class: 'btn btn-primary', data: {confirm: "「#{@menu.name}」を編集しますか？"}
+              / button.btn.btn-secondary data-bs-dismiss="modal" type="button"
+              /   | Close

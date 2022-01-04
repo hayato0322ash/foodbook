@@ -3,10 +3,11 @@ class ShopsController < ApplicationController
   before_action :correct_shop, only: %i[edit update destroy]
   def index
     @shops = Shop.page(params[:page]).per(10)
+    @menus = Menu.all
   end
 
   def show
-    @menus = Menu.where(shop_id: params[:id]).page(params[:page]).per(6)
+    @menus = Menu.where(shop_id: params[:id]).page(params[:page]).per(9)
     @menus_count = @shop.menus.count
     @user = @shop.user
   end

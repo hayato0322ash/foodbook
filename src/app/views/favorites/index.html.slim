@@ -1,17 +1,17 @@
-- provide :title, "#{current_user.name} のお気に入りメニュー一覧"
-
--if @favorites.present?
-  - @favorites.each do |favorite|
-    ul.favorite-menu
-      li
-        = link_to menu_path(favorite.menu) do
-          = image_tag favorite.menu.image.thumb100.url 
-      ul
+/ - provide :title, "#{current_user.name} のお気に入りメニュー一覧"
+- content_for :favorites_menus do 
+  -if @favorites.present?
+    - @favorites.each do |favorite|
+      ul.favorite-menu
         li
-          = link_to favorite.menu.name , menu_path(favorite.menu)
-          |  ( 
-          = link_to "#{favorite.menu.shop.name}", shop_path(favorite.menu.shop)
-          |  )
-        li= "価格：#{favorite.menu.price}円"
-        li= "評価：#{favorite.menu.evaluation}点"
-        li= link_to "食べに行く", root_path 
+          = link_to menu_path(favorite.menu) do
+            = image_tag favorite.menu.image.thumb100.url 
+        ul
+          li
+            = link_to favorite.menu.name , menu_path(favorite.menu)
+            |  ( 
+            = link_to "#{favorite.menu.shop.name}", shop_path(favorite.menu.shop)
+            |  )
+          li= "価格：#{favorite.menu.price}円"
+          li= "評価：#{favorite.menu.evaluation}点"
+          li= link_to "食べに行く", root_path 

@@ -2,7 +2,7 @@ class MenusController < ApplicationController
   before_action :set_menu, only: %i[show edit update destroy]
   before_action :correct_menu, only: %i[edit update destroy]
   def index
-    @menus = Menu.page(params[:page]).per(10)
+    @menus = Menu.page(params[:page]).per(9)
   end
 
   def show

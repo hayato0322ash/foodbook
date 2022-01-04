@@ -9,7 +9,7 @@ User.create!(name: name,
              password_confirmation: password,
              birthday: birthday,
              sex: sex,
-             image: File.open('./public/uploads/2f01060f-6e09-43b9-8c49-3a511a2dc42f.jpg'),
+             image: File.open('./public/uploads/8d307a98-fbc2-4a1e-a080-04b8a4b4b8df.jpg'),
              admin: true)
 name = '岡本　和也'
 email = 'contact@starskill.jp'
@@ -21,7 +21,7 @@ User.create!(name: name,
              password: password,
              password_confirmation: password,
              birthday: birthday,
-             image: File.open('./public/uploads/a37f68f7-f1b8-4441-89f4-e9ab0b5713b3.jpg'),
+             image: File.open('./public/uploads/7da1b32a-6ff2-4a14-a494-9b0137b5a8a9.jpg'),
              sex: sex)
 name = '緋村　剣心'
 email = 'hayato0322ash@yahoo.co.jp'
@@ -33,7 +33,7 @@ User.create!(name: name,
              password: password,
              password_confirmation: password,
              birthday: birthday,
-             image: File.open('./public/uploads/21aa6100-c255-4f0b-84d9-b6cdc6a0e368.jpg'),
+             image: File.open('./public/uploads/a88647f7-ffae-40ba-8232-1e5ef583565f.jpg'),
              sex: sex)
 name = '橋本　環奈'
 email = 'hayato0322biz@gmail.com'
@@ -45,7 +45,7 @@ User.create!(name: name,
              password: password,
              password_confirmation: password,
              birthday: birthday,
-             image: File.open('./public/uploads/3fad758a-add3-480b-b5fd-65c8dbf89f13.jpg'),
+             image: File.open('./public/uploads/3c7c56ce-166f-4392-b1e4-39757e31e69c.jpg'),
              sex: sex)
 name = '篠原　涼子'
 email = 'test@gmail.com'

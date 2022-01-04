@@ -3,7 +3,7 @@ class RepliesController < ApplicationController
   def create
     @reply = Reply.new reply_params
     if @reply.save
-      redirect_to menu_url(@reply.comment.menu)
+      redirect_to menu_url(@reply.comment.menu), success: 'リプライを投稿しました'
     else
       flash.now[:alert] = 'リプライができませんでした'
       redirect_to root_url
@@ -12,7 +12,7 @@ class RepliesController < ApplicationController
 
   def destroy
     Reply.find(params[:id]).destroy
-    redirect_to menu_url(@comment.menu), success: 'リプライを削除しました'
+    redirect_to menu_url(@comment.menu), danger: 'リプライを削除しました'
   end
 
   private

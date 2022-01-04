@@ -1,36 +1,100 @@
-- provide :title, "#{@user.name}"
-ul
-  -if @user.admin?
-    li= "管理者権限：あり"
-  li= image_tag @user.image.thumb100.url, class: "user-icon" 
-  li= "名前：#{@user.name}"
-  li= "性別：#{@user.sex}" 
-  - birthday = @user.birthday
-  li= "生年月日：#{birthday.strftime("%Y年%m月%d日") }"
-  li= "メールアドレス：#{@user.email}"
-  li
-    | 経営店舗：
-    ul.user-shops-list
-    - @user_shops.each do |shop|
-      li
-      = link_to shop.name, shop_path(shop)
+- provide :title, "マイページ"
+.user-show-box
+  ul.user-show-list
+    .user-icon
+      = image_tag @user.image.thumb200.url 
+      -if @user.admin?
+        li.admin-badge
+          | 管理者
+      - elsif current_user?(@user)
+        li.current_user-badge
+          | あなた
+    ul.user-show-profile
+      li.user-show-name
+        = "#{@user.name}"
+        span.user-show-sex
+          = "( #{@user.sex} )" 
+      - birthday = @user.birthday
+      li.user-show-birthday
+        = "#{birthday.strftime("%Y年%m月%d日") }生まれ"
+      li.user-show-shops-count
+        = "経営店舗：#{@user.shops.count} 店舗" 
+      - if admin? || current_user?(@user)
+        ul.user-show-btn-box
+          button.btn.btn-primary data-bs-target="#profileModal" data-bs-toggle="modal" data-bs-whatever="@mdo" type="button"
+            .far.fa-edit &nbsp編集
+    - if @user.shops.present? 
+      ul.user-show-shop-list
+        h3.user-show-title
+          | 経営店舗一覧
+        - @user_shops.each do |shop|
+          = link_to shop_path(shop) do 
+            ul.user-show-shop-item
+              li.user-show-shop-img 
+                = image_tag shop.image.thumb200.url
+              ul.user-show-shop-profile
+                li.user-show-shop-name
+                  = shop.name
+                li= "営業時間：#{shop.open_hour.strftime("%H:%M")} ~ #{shop.close_hour.strftime("%H:%M")}"
+                li= "メニュー数：#{shop.menus.count}つ"
+    -if @likes.present?
+      .user-show-like-box
+        h3.user-show-title
+          | いいねしたメニュー
+        = paginate @likes
+        .menus-grid
+          - @likes.each do |like|
+            ul.menu-grid-item
+              = link_to menu_path(like.menu), class: "menu-grid-img"
+                = image_tag like.menu.image.thumb300.url
+              li.user-show-menu-LFs
+                .menu-grid-heart-box
+                  i.fas.fa-heart 
+                    = " #{like.menu.likes.count}"
+                .menu-grid-star-box
+                  i.fas.fa-star 
+                    = " #{like.menu.favorites.count}"
+              li.user-show-menu-name
+                = link_to like.menu.name, menu_path(like.menu)
+                / li= link_to like.menu.shop.name, shop_path(like.menu.shop)
+    -if logged_in?
+      #profileModal.modal.fade aria-hidden="true" aria-labelledby="profileModalLabel" tabindex="-1" 
+        .modal-dialog.modal-dialog-centered
+          .modal-content
+            .modal-header
+              h5#profileModalLabel.modal-title 
+                | 「#{@user.name}」を編集する
+              button.btn-close aria-label="Close" data-bs-dismiss="modal" type="button" 
+            .modal-body
+              = form_with model: @user, local: true do |f|
+                .form-group 
+                  = f.label :image do
+                    .change-img
+                      i.fas.fa-camera.change-menu-camera
+                      = image_tag @user.image.url
+                      = f.file_field :image, style: 'display:none'
+                .form-group 
+                  = f.label :name, '名前'
+                  = f.text_field :name, class: 'form-control'
+                .form-group
+                  = f.label :email, 'メールアドレス'
+                  = f.text_field :email, class: 'form-control'
+                .form-group 
+                  = f.label :password, 'パスワード'
+                  = f.password_field :password, class: 'form-control'
+                .form-group 
+                  = f.label :password_confirmation, 'パスワード確認'
+                  = f.password_field :password_confirmation, class: 'form-control'
 
-- if admin? || current_user?(@user)
-  ul.btn-box
-    li= link_to "編集", edit_user_path(@user), class: "btn btn-primary"
-    li= link_to "削除", user_path, method: "delete", data: { confirm: "本当に「#{@user.name}」を削除しますか？"}, class: "btn btn-danger"
-
--if @likes.present?
-  h3
-    | いいねを押したメニュー
-  ul.menus-grid
-    - @likes.each do |like|
-      ul.menu-profile
-        li 
-          = link_to menu_path(like.menu)
-            = image_tag like.menu.image.thumb200.url, class: "menu-grid" 
-        li
-          = "★ #{like.menu.favorites.count} ❤︎ #{like.menu.likes.count} "
-          = link_to like.menu.name, menu_path(like.menu) 
-          / li= link_to like.menu.shop.name, shop_path(like.menu.shop)
-
+                .form-group 
+                  = f.label "性別"
+                  = f.select :sex, [["男性", "男性"],["女性", "女性"]], include_blank: "選択してください",class:"form-select"
+                .form-group
+                  = f.label :birthday, '生年月日'
+                  = f.date_select :birthday, prompt:"--", use_month_numbers:true, start_year:Time.now.year, end_year:1900
+                
+                .btn-box
+                  = link_to  "アカウントを削除する", user_path, method: "delete", class:"btn btn-danger", data: {confirm: "本当に「#{@user.name}」を削除しますか？"}
+                  = f.submit '編集する', class: 'btn btn-primary', data: {confirm: "「#{@user.name}」を編集しますか？"}
+                  / button.btn.btn-secondary data-bs-dismiss="modal" type="button" 
+                  /   | Close
