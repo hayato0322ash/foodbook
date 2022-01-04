@@ -1,35 +1,74 @@
 div.nav-box
-  - if logged_in?
-    div.Current-User-Box
-      span.current-user-link
-        = link_to user_path(current_user) do 
-          = image_tag current_user.image.thumb20.url, class:"current-user-icon"  
-        = link_to "#{current_user.name}", user_path(current_user), class: "white"
-      - if admin?
-        p.btn.btn-danger
-          | ※管理者がログイン中
+  .header-logo
+    - if logged_in?
+      = link_to user_path(current_user) do 
+        = image_tag  "logo_white.png"
+    - else 
+      = link_to root_path do 
+        = image_tag  "logo_white.png"
   ul.navbar-nav.ml-auto 
     - if admin? && logged_in?
-      li.nav-item = link_to "ユーザー一覧", users_path
-      li.nav-item = link_to "メニューを登録する", new_menu_path
-      li.nav-item = link_to "メニュー一覧", menus_path
-      li.nav-item = link_to "お気に入りメニュー", user_favorites_path(current_user)
-      li.nav-item = link_to "店舗を登録する", new_shop_path
-      li.nav-item = link_to  "店舗一覧", shops_path 
-      li.nav-item = link_to  "ログアウト", logout_path, method: "delete" 
+      li.nav-item
+        i.fas.fa-users.white 
+        = link_to "ユーザーを探す", users_path, class:"nav-item-text"  
+      li.nav-item
+        i.fas.fa-utensils.white
+        = link_to "メニューを探す", menus_path, class:"nav-item-text"  
+      / li.nav-item = link_to "お気に入りメニュー", user_favorites_path(current_user), class:"nav-item-text"  
+      li.nav-item
+        i.fas.fa-store.white 
+        = link_to "お店を探す", shops_path, class:"nav-item-text"  
     - elsif logged_in?
-      li.nav-item = link_to "メニュー一覧", menus_path
-      - if current_user.shops.present?
-        li.nav-item = link_to "メニューを登録する", new_menu_path
-      li.nav-item = link_to "お気に入りメニュー", user_favorites_path(current_user)
-      li.nav-item = link_to  "店舗一覧", shops_path 
-      li.nav-item = link_to "店舗を登録する", new_shop_path
-      li.nav-item = link_to  "ログアウト", logout_path, method: "delete" 
+      li.nav-item 
+        i.fas.fa-utensils.white
+        = link_to "メニューを探す", menus_path, class:"nav-item-text"  
+      / li.nav-item = link_to "お気に入りメニュー", user_favorites_path(current_user), class:"nav-item-text"  
+      li.nav-item 
+        i.fas.fa-store.white
+        = link_to "お店を探す", shops_path , class:"nav-item-text"  
     - else
-      li.nav-item = link_to "メニュー一覧", menus_path
-      li.nav-item = link_to  "店舗一覧", shops_path 
-      li.nav-item = link_to "ユーザー登録", new_user_path
-      li.nav-item = link_to "ログイン", login_path
-    
-      
-  
+      li.nav-item
+        i.fas.fa-utensils.white
+        = link_to "メニューを探す", menus_path, class:"nav-item-text"  
+      li.nav-item
+        i.fas.fa-store.white 
+        = link_to "お店を探す", shops_path, class:"nav-item-text"  
+      .closing-box
+        = link_to "新規登録(無料)", new_user_path, class: "signup-btn"
+        = link_to login_path, class: "login-btn" do
+          i.fas.fa-sign-in-alt &nbspログイン
+    - if logged_in?
+      div.Current-User-Box
+        -if admin?
+          .dropdown
+            div#dropdownMenuLink.admin-user-link aria-expanded="false" data-bs-toggle="dropdown" href="#" role="button" 
+              = link_to user_path(current_user) do 
+                = image_tag current_user.image.thumb20.url, class:"current-user-icon"  
+              a.white
+                = "#{current_user.name} "
+                i.fas.fa-angle-down
+            ul.dropdown-menu aria-labelledby="dropdownMenuLink" 
+              li= link_to "管理者情報", user_path(current_user), class: "dropdown-item"
+              li.nav-item = link_to "店舗を登録する", new_shop_path, class: "dropdown-item"
+              - if current_user.shops.present?
+                li.nav-item = link_to "メニューを登録する", new_menu_path, class: "dropdown-item"
+              li.nav-item 
+                = link_to logout_path, method: "delete" , class: "dropdown-item" do 
+                  i.fas.fa-sign-out-alt &nbspログアウト
+        - else 
+          .dropdown
+            div#dropdownMenuLink.current-user-link aria-expanded="false" data-bs-toggle="dropdown" href="#" role="button" 
+              = link_to user_path(current_user) do 
+                = image_tag current_user.image.thumb20.url, class:"current-user-icon"  
+              a.white
+                = "#{current_user.name} "
+                i.fas.fa-angle-down
+            ul.dropdown-menu.dropdown-menu-green aria-labelledby="dropdownMenuLink" 
+              li= link_to "ユーザー情報", user_path(current_user), class: "dropdown-item"
+              li.nav-item = link_to "店舗を登録する", new_shop_path, class: "dropdown-item"
+              - if current_user.shops.present?
+                li.nav-item = link_to "メニューを登録する", new_menu_path, class: "dropdown-item"
+              li.nav-item 
+                = link_to logout_path, method: "delete" , class: "dropdown-item" do 
+                  i.fas.fa-sign-out-alt &nbspログアウト
+              

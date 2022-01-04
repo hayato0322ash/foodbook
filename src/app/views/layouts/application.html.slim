@@ -3,15 +3,46 @@ html
   head
     = render partial: "layouts/head" 
   body
-
+    
     = render partial: "layouts/header"
-    .page-title
-      h1 = yield :title
+    / .page-title
+    /   h1 = yield :title
     .container
-      = render partial: "layouts/flash" 
-      = yield
-      = render partial: "layouts/root_btn" 
+      .current_bar
+        - if logged_in?
+          ul.current_bar_tabs 
+            li.favorites_menu_tab
+              = link_to user_favorites_path(current_user) do 
+                = icon 'fas', 'store'
+            li.favorites_shops_tab
+              = link_to user_favorites_path(current_user) do 
+                = icon 'fas', 'utensils'
+          = yield :favorites_menus
+      .page_box
+        .page_header 
+          h1
+            -if logged_in?
+              -if current_page?(menus_path) 
+                i.fas.fa-utensils
+              -elsif current_page?(shops_path) 
+                i.fas.fa-store 
+              -elsif current_page?(users_path) 
+                i.fas.fa-users
+              -elsif current_page?("/shops/new") || current_page?("/menus/new") || current_page?("/users/new")
+                return
+              -elsif current_page?(user_path(params[:id]))
+                i.fas.fa-user
+              -elsif current_page?(menu_path(params[:id]))
+                i.fas.fa-utensils
+              -elsif current_page?(shop_path(params[:id]))
+                i.fas.fa-store
+            = yield :title
+
+        .page_content
+          = render partial: "layouts/flash" 
+          = yield
+        .page_side_bar
       / デバッグ表示
-      = debug(params) if Rails.env.development? 
+      / = debug(params) if Rails.env.development? 
 
     script crossorigin="anonymous" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" 

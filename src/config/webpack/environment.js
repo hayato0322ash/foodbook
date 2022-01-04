@@ -11,3 +11,4 @@ environment.plugins.prepend('Provide',
 //ここまで
 
 module.exports = environment
+

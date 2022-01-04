@@ -21,3 +21,7 @@ require("jquery")
 
 //以下の一文を追加
 require('hayato.js')
+
+$(function () {
+  setTimeout("$('.alert').fadeOut('slow')", 2000);
+});

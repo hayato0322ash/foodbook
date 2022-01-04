@@ -1,10 +1,12 @@
-- provide :title, "ユーザー一覧"
+- provide :title, "ユーザーを探す"
 = paginate @users
 - @users.each do |user|
-  ul.user_data  
-    li= link_to user_path(user) do 
-      = image_tag user.image.thumb100.url, class:"current-user-icon"  
-    li= link_to user.name, user_path(user)
-    -if user.admin
-      li= "管理者権限：あり"
+  = link_to user_path(user) do 
+    ul.user_data  
+      li= image_tag user.image.thumb50.url, class:"current-user-icon"  
+      -if user.admin
+        li.index-admin-badge
+          | 管理者
+      li= user.name
+      
 = paginate @users
