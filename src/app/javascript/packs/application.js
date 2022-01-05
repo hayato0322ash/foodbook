@@ -23,5 +23,5 @@ require("jquery")
 require('hayato.js')
 
 $(function () {
-  setTimeout("$('.alert').fadeOut('slow')", 2000);
+  setTimeout("$('.alert ').fadeOut('slow')", 2000);
 });

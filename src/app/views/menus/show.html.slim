@@ -86,7 +86,7 @@ ul.menu-show
           button.reply-btn aria-controls="panelsStayOpen-collapseOne#{comment.id}" aria-expanded="true" data-bs-target="#panelsStayOpen-collapseOne#{comment.id}" data-bs-toggle="collapse" type="button" 
             = "返信 (#{comment.replies.count})"
           - if admin? || current_user_item?(comment)
-            = link_to  "削除", menu_comment_path(@menu.id,comment.id), method: "delete", data: {confirm: "コメントを削除しますか？"}, class: "btn btn-danger", remote: true
+            = link_to  "削除", menu_comment_path(@menu.id,comment.id), method: "delete", data: {confirm: "コメントを削除しますか？"}, class: "btn btn-danger"
         li.comment-content
           = comment.content
         - if comment.image.present?
@@ -100,31 +100,31 @@ ul.menu-show
                 .modal-body
                   .comment-img-fullsize 
                     = image_tag comment.image.url 
-        .accordion id="accordionPanelsStayOpen#{comment.id}"
-          .accordion-collapse.collapse.reply-block id="panelsStayOpen-collapseOne#{comment.id}"
-            - comment.replies.reverse.each do |reply|
-              ul.reply-item
-                li
-                  .Current-User-Box
-                    span.current-user-link
-                      = link_to user_path(@users.find(reply.user_id)) do 
-                        = image_tag @users.find(reply.user_id).image.thumb20.url, class:"current-user-icon"  
-                        = link_to  "#{@users.find(reply.user_id).name}", user_path(@users.find(reply.user_id)), class: "white"
-                    = date_format(reply.created_at)
-                    | &nbsp&nbsp
-                    - if admin? || current_user_item?(reply)
-                      = link_to  "削除", comment_reply_path(comment.id, reply.id), method: "delete", data: {confirm: "リプライを削除しますか？"}, class: "btn btn-danger", remote: true
-                li
-                  = reply.content
-            -if logged_in?
-              .current-comment-box
-                .menu-comment-form
-                  .comment-user-icon 
-                    = image_tag current_user.image.thumb50.url 
-                  = form_with url: comment_replies_url(comment), class: "reply-form" do |f|
-                    = f.text_area :content, class: "form-control comment-textarea", placeholder:"リプライを入力"
-                    .btn-box
-                      = f.submit "リプライ", class: "form_submit btn btn-primary "
+      .accordion id="accordionPanelsStayOpen#{comment.id}"
+        .accordion-collapse.collapse.reply-block id="panelsStayOpen-collapseOne#{comment.id}"
+          - comment.replies.reverse.each do |reply|
+            ul.reply-item
+              li
+                .Current-User-Box
+                  span.current-user-link
+                    = link_to user_path(@users.find(reply.user_id)) do 
+                      = image_tag @users.find(reply.user_id).image.thumb20.url, class:"current-user-icon"  
+                      = link_to  "#{@users.find(reply.user_id).name}", user_path(@users.find(reply.user_id)), class: "white"
+                  = date_format(reply.created_at)
+                  | &nbsp&nbsp
+                  - if admin? || current_user_item?(reply)
+                    = link_to  "削除", comment_reply_path(comment.id, reply.id), method: "delete", data: {confirm: "リプライを削除しますか？"}, class: "btn btn-danger"
+              li
+                = reply.content
+          -if logged_in?
+            .current-comment-box
+              .menu-comment-form
+                .comment-user-icon 
+                  = image_tag current_user.image.thumb50.url 
+                = form_with url: comment_replies_url(comment), class: "reply-form" do |f|
+                  = f.text_area :content, class: "form-control comment-textarea", placeholder:"リプライを入力"
+                  .btn-box
+                    = f.submit "リプライ", class: "form_submit btn btn-primary "
 
 -if logged_in?
   #menuModal.modal.fade aria-hidden="true" aria-labelledby="menuModalLabel" tabindex="-1" 
