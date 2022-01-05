@@ -719,6 +719,80 @@ li {
   font-style: italic;
   font-weight: bold;
 }
+.menu-show-shop-item {
+  display: flex;
+  padding: 10px;
+  border-radius: 5px;
+  box-sizing: border-box;
+  
+  border: $gray-medium-light solid 2px;
+    background-color: #fafafa;
+  &:hover {
+    border: #ebebeb00 solid 2px;
+    background-color: #fcfcfc00;
+  }
+  .menu-show-shop-img {
+    width: 100px;
+    height: 80px;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    border-radius: 3px;
+    img {
+      width: 150px;
+      margin: 0 -50px;
+    }
+  }
+}
+
+.menu-show-shop-profile {
+  width: 80%;
+  margin-left: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  li {
+    font-size: 12px;
+  }
+}
+.menu-show-shop {
+  font-size: 13px;
+  font-weight: bold;
+  padding-left: 13px;
+  margin-bottom: 5px;
+  position: relative;
+  &::before{
+    content:"";
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 8px;
+    height: 100%;
+    border-radius: 4px 0px 0px 4px;
+    background-color: rgb(19, 32, 47);
+  }
+}
+.menu-show-shop-name {
+  width: 100%;
+  padding-left: 15px;
+  margin-bottom: 5px;
+  position: relative;
+  font-size: 12px;
+  font-weight: bold;
+  color: #222222;
+  &:hover {
+    color: rgb(19, 32, 47);
+  }
+  &::before{
+    content:"";
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 8px;
+    height: 100%;
+    border-radius: 4px 0px 0px 4px;
+    background-color: rgb(19, 32, 47);
+  }
+}
 .menus-grid {
   width: 100%;
   display: flex;
@@ -874,12 +948,15 @@ li {
 .menu-img {
   width: 40%;
 }
-.menu-profile {
-  width:55%;
+.menu-profile-box {
+  width:57%;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   .btn-box {
     position: absolute;
-    bottom: 0;
+    top: 0;
     right: 0;
     .btn {
       margin-right: 0;

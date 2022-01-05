@@ -2,41 +2,52 @@
 
 ul.menu-show
   = image_tag @menu.image.thumb300.url, class: "menu-img"  
-  ul.menu-profile
-    ul.menu-LikeFavo-btn
-      - if logged_in?
-        - if @likes.find_by(user_id: current_user.id).blank?
-          li
-            = link_to menu_likes_path(@menu), method: "post", class: "like like-gray", remote: true do 
-              i.far.fa-heart
-              |  #{@likes.count}
+  ul.menu-profile-box
+    .menu-profile
+      ul.menu-LikeFavo-btn
+        - if logged_in?
+          - if @likes.find_by(user_id: current_user.id).blank?
+            li
+              = link_to menu_likes_path(@menu), method: "post", class: "like like-gray", remote: true do 
+                i.far.fa-heart
+                |  #{@likes.count}
+          - else 
+            li 
+              = link_to menu_like_path(@menu), method: "delete", class: "like like-pink", remote: true do 
+                i.fas.fa-heart
+                |  #{@likes.count}
+          -if @favorites.find_by(user_id: current_user.id).blank?
+            li
+              = link_to menu_favorites_path(@menu), method: "post", class: "favo favo-gray", remote: true do
+                i.far.fa-star
+                |  #{@favorites.count}
+          -else
+            li
+              = link_to menu_favorite_path(@menu), method: "delete", class: "favo favo-orange", remote: true do
+                i.fas.fa-star
+                |  #{@favorites.count}
         - else 
-          li 
-            = link_to menu_like_path(@menu), method: "delete", class: "like like-pink", remote: true do 
-              i.fas.fa-heart
-              |  #{@likes.count}
-        -if @favorites.find_by(user_id: current_user.id).blank?
           li
-            = link_to menu_favorites_path(@menu), method: "post", class: "favo favo-gray", remote: true do
-              i.far.fa-star
-              |  #{@favorites.count}
-        -else
+            i.fas.fa-heart
+              = " #{@likes.count}"
           li
-            = link_to menu_favorite_path(@menu), method: "delete", class: "favo favo-orange", remote: true do
-              i.fas.fa-star
-              |  #{@favorites.count}
-      - else 
-        li
-          i.fas.fa-heart
-            = " #{@likes.count}"
-        li
-          i.fas.fa-star 
-            = " #{@favorites.count}"
-    li 
-      | 店舗名： 
-      = link_to "#{@menu.shop.name}", shop_path(@menu.shop)
-    li= "価格：#{@menu.price}円"
-    li= "評価：#{@menu.evaluation}点"
+            i.fas.fa-star 
+              = " #{@favorites.count}"
+      li= "価格：#{@menu.price}円"
+      li= "評価：#{@menu.evaluation}点"
+    
+    
+    = link_to shop_path(@menu.shop) do 
+      .menu-show-shop
+        | 提供店舗情報
+      ul.menu-show-shop-item
+        li.menu-show-shop-img 
+          = image_tag @menu.shop.image.thumb200.url
+        ul.menu-show-shop-profile
+          li.menu-show-shop-name
+            = @menu.shop.name
+          li= "営業時間：#{@menu.shop.open_hour.strftime("%H:%M")} ~ #{@menu.shop.close_hour.strftime("%H:%M")}"
+          li= "メニュー数：#{@menu.shop.menus.count}つ"
     - if logged_in?
       - if admin? || @menu.shop.user_id == current_user.id 
         ul.btn-box
