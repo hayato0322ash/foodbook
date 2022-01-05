@@ -29,49 +29,52 @@ ul.shop-show-box
       ul.menu-grid-item
         = link_to menu_path(menu), class: "menu-grid-img" do 
           = image_tag menu.image.thumb200.url
-          li.user-show-menu-LFs
+          li.menu-grid-LFs
             .menu-grid-heart-box
               i.fas.fa-heart
                 = " #{menu.likes.count}"
             .menu-grid-star-box
               i.fas.fa-star
                 = " #{menu.favorites.count}"
-        li.user-show-menu-name
+          - if new_time(menu, 7)
+            li.menu-grid-NEW
+              | NEW!
+          - if logged_in?
+            - if admin? || menu.shop.user_id == current_user.id
+              li.btn-box.menu-grid-btn-box
+                button.btn.btn-primary data-bs-target="#menuModal#{menu.id}" data-bs-toggle="modal" data-bs-whatever="@mdo" type="button"
+                  .far.fa-edit &nbsp編集
+        li.menu-grid-name
           = link_to menu.name, menu_path(menu)
-        - if logged_in?
-          - if admin? || menu.shop.user_id == current_user.id
-            li.btn-box.menu-grid-btn-box
-              button.btn.btn-primary data-bs-target="#menuModal#{menu.id}" data-bs-toggle="modal" data-bs-whatever="@mdo" type="button"
-                .far.fa-edit &nbsp編集
-              div.modal.fade aria-hidden="true" aria-labelledby="menuModalLabel" tabindex="-1" id="menuModal#{menu.id}"
-                .modal-dialog.modal-dialog-centered
-                  .modal-content
-                    .modal-header
-                      h5#menuModalLabel.modal-title 
-                        | 「#{menu.name}」を編集する
-                      button.btn-close aria-label="Close" data-bs-dismiss="modal" type="button" 
-                    .modal-body
-                      = form_with model: menu, local: true do |f|
-                        .form-group 
-                          = f.label :image do
-                            .change-img
-                              i.fas.fa-camera.change-menu-camera
-                              = image_tag menu.image.url
-                              = f.file_field :image, style: 'display:none'
-                        .form-group 
-                          = f.label :name, 'メニュー名'
-                          = f.text_field :name, class: 'form-control'
-                        .form-group
-                          = f.label :price, '価格'
-                          = f.number_field :price, class: 'form-control'
-                        .form-group
-                          = f.label :evaluation, '評価'
-                          = f.number_field :evaluation, class: 'form-control'
-                        .btn-box
-                          = f.submit '編集する', class: 'btn btn-primary', data: {confirm: "「#{menu.name}」を編集しますか？"}
-                          = link_to "メニューを削除する", menu_path(menu.id), method: "delete", class:"btn btn-danger", data: {confirm: "「#{menu.name}」を削除しますか？"}
-                          button.btn.btn-secondary data-bs-dismiss="modal" type="button" 
-                            | Close
+          div.modal.fade aria-hidden="true" aria-labelledby="menuModalLabel" tabindex="-1" id="menuModal#{menu.id}"
+            .modal-dialog.modal-dialog-centered
+              .modal-content
+                .modal-header
+                  h5#menuModalLabel.modal-title 
+                    | 「#{menu.name}」を編集する
+                  button.btn-close aria-label="Close" data-bs-dismiss="modal" type="button" 
+                .modal-body
+                  = form_with model: menu, local: true do |f|
+                    .form-group 
+                      = f.label :image do
+                        .change-img
+                          i.fas.fa-camera.change-menu-camera
+                          = image_tag menu.image.url
+                          = f.file_field :image, style: 'display:none'
+                    .form-group 
+                      = f.label :name, 'メニュー名'
+                      = f.text_field :name, class: 'form-control'
+                    .form-group
+                      = f.label :price, '価格'
+                      = f.number_field :price, class: 'form-control'
+                    .form-group
+                      = f.label :evaluation, '評価'
+                      = f.number_field :evaluation, class: 'form-control'
+                    .btn-box
+                      = f.submit '編集する', class: 'btn btn-primary', data: {confirm: "「#{menu.name}」を編集しますか？"}
+                      = link_to "メニューを削除する", menu_path(menu.id), method: "delete", class:"btn btn-danger", data: {confirm: "「#{menu.name}」を削除しますか？"}
+                      button.btn.btn-secondary data-bs-dismiss="modal" type="button" 
+                        | Close
 
 
 -if logged_in?

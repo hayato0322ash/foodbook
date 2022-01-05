@@ -6,14 +6,17 @@ ul.menus-grid
       li 
         = link_to menu_path(menu)
           = image_tag menu.image.thumb200.url, class: "menu-grid-img" 
-      li.user-show-menu-LFs
+      li.menu-grid-LFs
         .menu-grid-heart-box
           i.fas.fa-heart
             = " #{menu.likes.count}"
         .menu-grid-star-box
           i.fas.fa-star
             = " #{menu.favorites.count}"
-      li.user-show-menu-name
+      - if new_time(menu, 7)
+        li.menu-grid-NEW
+          | NEW!
+      li.menu-grid-name
         = link_to menu.name, menu_path(menu)
 
 
