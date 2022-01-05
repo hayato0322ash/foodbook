@@ -35,6 +35,9 @@
               ul.user-show-shop-profile
                 li.user-show-shop-name
                   = shop.name
+                -if shop.headline
+                  li.shop-index-headline
+                    = "-#{shop.headline}-"
                 li= "営業時間：#{shop.open_hour.strftime("%H:%M")} ~ #{shop.close_hour.strftime("%H:%M")}"
                 li= "メニュー数：#{shop.menus.count}つ"
     -if @likes.present?

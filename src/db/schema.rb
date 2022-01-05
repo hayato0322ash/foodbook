@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_25_122722) do
+ActiveRecord::Schema.define(version: 2022_01_05_082059) do
 
   create_table "comments", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "menu_id"
@@ -69,6 +69,7 @@ ActiveRecord::Schema.define(version: 2021_12_25_122722) do
     t.string "address_street"
     t.string "address_building"
     t.string "image"
+    t.string "headline"
   end
 
   create_table "users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|

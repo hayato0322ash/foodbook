@@ -39,8 +39,17 @@ class ShopsController < ApplicationController
   private
 
   def shop_params
-    params.require(:shop).permit(:name, :open_hour, :close_hour, :postcode, :prefecture_code, :address_city,
-                                 :address_street, :address_building, :image).merge(user_id: current_user.id)
+    params.require(:shop).permit(:name,
+                                 :open_hour,
+                                 :close_hour,
+                                 :postcode,
+                                 :prefecture_code,
+                                 :address_city,
+                                 :address_street,
+                                 :address_building,
+                                 :image,
+                                 :headline)
+          .merge(user_id: current_user.id)
   end
 
   def set_shop

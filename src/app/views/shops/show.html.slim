@@ -2,6 +2,8 @@
 ul.shop-show-box
   li.shop-img
     = image_tag  @shop.image.url 
+    h3.shop-headline  
+      = @shop.headline
   / li= "メニュー数：#{@menus_count}"
   / li= "店舗名： #{@shop.name} "
   
@@ -102,6 +104,9 @@ ul.shop-show-box
               | 〜
               = f.label :close_hour, '閉店時間'
               = f.time_select :close_hour, class: 'form-select'
+            .form-group 
+              = f.label :headline, "見出し文"
+              = f.text_field :headline, class: "form-control"
             .form-group 
               / 追記
               = f.label :postcode, '郵便番号'

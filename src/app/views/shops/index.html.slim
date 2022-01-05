@@ -8,6 +8,9 @@
       .shop-index-info
         li.shop-index-name
           = "#{shop.name}"
+        -if shop.headline
+          li.shop-index-headline
+            = "-#{shop.headline}-"
         li= "営業時間：#{shop.open_hour.strftime("%H:%M")} ~ #{shop.close_hour.strftime("%H:%M")}"
         li= "店舗住所：〒#{shop.postcode} #{JpPrefecture::Prefecture.find(shop.prefecture_code).name}#{shop.address_city}#{shop.address_street} #{shop.address_building}"
         li= "メニュー数：#{shop.menus.count}つ"
