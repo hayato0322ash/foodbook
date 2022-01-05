@@ -9,4 +9,9 @@ module ApplicationHelper
   def date_format(datetime)
     time_ago_in_words(datetime) + '前'
   end
+
+  def new_time(object, limit)
+    now = Time.now
+    now < object.created_at.since(limit.day)
+  end
 end
