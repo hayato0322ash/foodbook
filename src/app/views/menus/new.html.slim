@@ -10,6 +10,9 @@
       .form-group 
         = f.label :shop_id, "店舗"
         = f.collection_select :shop_id, current_user.shops, :id, :name, class: "form-control"
+    .form-group
+      = f.label :category_id, "カテゴリ"
+      = f.select :category_id, {"フード": 1, "ドリンク": 2, "デザート": 3}, {include_blank: "選択してください"}, {class: "form-select"}
     .form-group 
       = f.label :name, 'メニュー名'
       = f.text_field :name, class: 'form-control'
