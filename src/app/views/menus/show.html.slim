@@ -4,6 +4,20 @@ ul.menu-show
   = image_tag @menu.image.thumb300.url, class: "menu-img"  
   ul.menu-profile-box
     .menu-profile
+      .badge-box
+        -if @menu.limited?
+          span.limited_badge.orange-badge
+            | 期間限定!!
+        li.menu-show-category
+          -if @menu.category_id == 1
+            span.category_badge.red-badge
+              = "#{@menu.category.name}"
+          -elsif @menu.category_id == 2
+            span.category_badge.blue-badge
+              = "#{@menu.category.name}"
+          -elsif @menu.category_id == 3
+            span.category_badge.yellow-badge
+              = "#{@menu.category.name}"
       ul.menu-LikeFavo-btn
         - if logged_in?
           - if @likes.find_by(user_id: current_user.id).blank?
@@ -33,16 +47,6 @@ ul.menu-show
           li
             i.fas.fa-star 
               = " #{@favorites.count}"
-      li.menu-show-category
-        -if @menu.category_id == 1
-          span.category_badge.red-category-badge
-            = "#{@menu.category.name}"
-        -elsif @menu.category_id == 2
-          span.category_badge.blue-category-badge
-            = "#{@menu.category.name}"
-        -elsif @menu.category_id == 3
-          span.category_badge.yellow-category-badge
-            = "#{@menu.category.name}"
       li= "価格：#{@menu.price}円"
       li= "評価：#{@menu.evaluation}点"
       
@@ -173,9 +177,9 @@ ul.menu-show
             .form-group
               = f.label :price, '価格'
               = f.number_field :price, class: 'form-control'
-            .form-group
-              = f.label :evaluation, '評価'
-              = f.number_field :evaluation, class: 'form-control'
+            .form-group.form-check.form-switch
+              = f.label :limited, '期間限定メニュー', class: "form-check-label"
+              = f.check_box :limited, class: "form-check-input"
             
             .btn-box
               = link_to  "メニューを削除する", menu_path, method: "delete", class:"btn btn-danger", data: {confirm: "「#{@menu.name}」を削除しますか？"}

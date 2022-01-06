@@ -13,8 +13,11 @@ ul.menus-grid
         .menu-grid-star-box
           i.fas.fa-star
             = " #{menu.favorites.count}"
-      - if new_time(menu, 7)
-        li.menu-grid-NEW
+      - if menu.limited?
+        li.menu-grid-release-badge.menu-grid-LIMITED
+          | 期間限定!!
+      - elsif new_time(menu, 7)
+        li.menu-grid-release-badge.menu-grid-NEW
           | NEW!
       li.menu-grid-name
         = link_to menu.name, menu_path(menu)

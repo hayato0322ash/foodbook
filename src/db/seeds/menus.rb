@@ -17,7 +17,8 @@ Menu.create!(shop_id: shop_id,
              name: name,
              price: price,
              image: File.open('./public/uploads/88fdf91f-8fbb-43a0-87af-d85a1b40e37a.jpg'),
-             evaluation: evaluation)
+             evaluation: evaluation,
+             limited: true)
 name = 'ダークモカフラペチーノ'
 price = 440
 evaluation = 5
