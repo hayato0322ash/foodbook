@@ -9,6 +9,7 @@ class Menu < ApplicationRecord
   validates :price, presence: true
   validates :evaluation, presence: true
   validates :category_id, presence: true
+  validates :limited, inclusion: [true, false]
 
   # carrierwave画像アップロード用
   mount_uploader :image, ImageUploader
