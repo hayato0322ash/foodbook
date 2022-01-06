@@ -33,8 +33,19 @@ ul.menu-show
           li
             i.fas.fa-star 
               = " #{@favorites.count}"
+      li.menu-show-category
+        -if @menu.category_id == 1
+          span.category_badge.red-category-badge
+            = "#{@menu.category.name}"
+        -elsif @menu.category_id == 2
+          span.category_badge.blue-category-badge
+            = "#{@menu.category.name}"
+        -elsif @menu.category_id == 3
+          span.category_badge.yellow-category-badge
+            = "#{@menu.category.name}"
       li= "価格：#{@menu.price}円"
       li= "評価：#{@menu.evaluation}点"
+      
     
     
     = link_to shop_path(@menu.shop) do 
@@ -153,6 +164,9 @@ ul.menu-show
                   i.fas.fa-camera.change-menu-camera
                   = image_tag @menu.image.url
                   = f.file_field :image, style: 'display:none'
+            .form-group 
+              = f.label :category_id, "カテゴリ"
+              = f.select :category_id, {"フード": 1, "ドリンク": 2, "デザート": 3}, {include_blank: "選択してください"}, {class: "form-select"}
             .form-group 
               = f.label :name, 'メニュー名'
               = f.text_field :name, class: 'form-control'

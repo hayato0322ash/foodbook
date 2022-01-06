@@ -1,5 +1,6 @@
 require './db/seeds/users'
 require './db/seeds/shops'
+require './db/seeds/categories'
 require './db/seeds/menus'
 require './db/seeds/comments'
 require './db/seeds/replies'
