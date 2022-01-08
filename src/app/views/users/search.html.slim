@@ -1,0 +1,37 @@
+- provide :title, "検索結果"
+
+.search-box
+  h4.search-headline
+    | ユーザー検索
+  = search_form_for @q, url: search_users_path do |f|
+    .form-group.form-half
+      = f.label :name_cont, "ユーザー名"
+      = f.search_field :name_cont, placeholder: "名前", class: "form-control"
+    .form-group.form-half
+      = f.label :sex_eq, "性別"
+      = f.select :sex_eq, {"男性": "男性", "女性": "女性"}, {include_blank: '選択してください' }, class: 'form-select'
+    .form-group
+      = f.label :email_cont, "メールアドレス"
+      = f.search_field :email_cont, placeholder: "foodbook@menu.com", class: "form-control"
+
+    = f.submit "検索", class: "btn btn-primary"
+
+- if @results_pagination.present?
+  .found_headline
+    h2 
+      = "検索結果：#{@results.count}件"
+  = paginate @results_pagination
+  - @results_pagination.each do |user|
+    = link_to user_path(user) do 
+      ul.user_data  
+        li= image_tag user.image.thumb50.url, class:"current-user-icon"  
+        -if user.admin
+          li.index-admin-badge
+            | 管理者
+        li= user.name
+        
+  = paginate @results_pagination
+-else
+  .found_headline
+    h2 
+      = "検索結果：#{@results_pagination.count}件"

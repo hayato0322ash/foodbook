@@ -1,4 +1,32 @@
 - provide :title, 'メニューを探す'
+
+.search-box
+  h4.search-headline
+    | メニュー検索
+  = search_form_for @q, url: search_menus_path do |f|
+    .form-group.form-half
+      = f.label :category_id_eq, "カテゴリ"
+      = f.select :category_id_eq, {"フード": 1, "ドリンク": 2, "デザート": 3}, {include_hidden: false, include_blank: "選択してください"}, {class: "form-select"}
+    .form-group.form-half
+      = f.label :limited_eq, "期間限定メニュー", class: "search-label"
+      = f.check_box :limited_eq, include_hidden: false, class: "form-check-input"
+    .form-group.form-half
+      = f.label :name_cont, "名前"
+      = f.search_field :name_cont, placeholder: "名前", class: "form-control"
+    .form-group.form-half
+      = f.label :shop_name_cont, "店舗名"
+      = f.search_field :shop_name_cont, placeholder: "店舗名", class: "form-control"
+    .form-group.form-half
+      = f.label :evaluation_eq, "評価"
+      = f.number_field :evaluation_eq, placeholder: "評価", class: "form-control"
+    .form-group.form-price
+      = f.label :price_gteq, "価格帯", class: "search-label"
+      = f.number_field :price_gteq, placeholder: "min (円)", class: "form-control price"
+      = f.label :price_lteq, "　〜　"
+      = f.number_field :price_lteq, placeholder: "max (円)", class: "form-control price"
+    
+    = f.submit "検索", class: "btn btn-primary"
+
 = paginate @menus
 ul.menus-grid
   - @menus.each do |menu|  

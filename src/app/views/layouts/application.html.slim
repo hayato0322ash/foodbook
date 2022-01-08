@@ -28,7 +28,7 @@ html
                 i.fas.fa-store 
               -elsif current_page?(users_path) 
                 i.fas.fa-users
-              -elsif current_page?("/shops/new") || current_page?("/menus/new") || current_page?("/users/new")
+              -elsif current_page?("/shops/new") || current_page?("/menus/new") || current_page?("/users/new") || current_page?("/users/search") || current_page?("/menus/search") || current_page?("/shops/search")
                 return
               -elsif current_page?(user_path(params[:id]))
                 i.fas.fa-user

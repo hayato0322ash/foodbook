@@ -1,6 +1,7 @@
 class ShopsController < ApplicationController
   before_action :set_shop, only: %i[show edit update destroy]
   before_action :correct_shop, only: %i[edit update destroy]
+  before_action :set_q, only: %i[index search]
   def index
     @shops = Shop.page(params[:page]).per(10)
     @menus = Menu.all
@@ -36,7 +37,16 @@ class ShopsController < ApplicationController
     redirect_to shops_url, danger: "店舗「#{@shop.name}」を削除しました"
   end
 
+  def search
+    @results = @q.result
+    @results_pagination = @results.page(params[:page]).per(10)
+  end
+
   private
+
+  def set_q
+    @q = Shop.ransack(params[:q])
+  end
 
   def shop_params
     params.require(:shop).permit(:name,

@@ -124,13 +124,13 @@ li {
   justify-content: space-between;
   align-items: center;
   background-color: rgb(19, 32, 47);
-  padding: 0px 30px;
   position: fixed;
   top:0;
   z-index: 1000;
 }
 .header-logo {
   width: 140px;
+  margin-left: 30px;
   a {
     width: 100%;
     img {
@@ -138,6 +138,36 @@ li {
     }
   }
 }
+.header-right-box {
+  width: calc(100% - 300px);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.header-menu-search-box {
+  position: relative;
+  .fa-search {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+  }
+}
+.header-menu-search {
+  width: 300px;
+  height: 90%;
+  font-size: 14px!important;
+  padding: 6px 0px 6px 30px!important;
+  margin-bottom: 0!important;
+  background-color: #182d46;
+  border: 1px solid rgba(89,128,172,.5);
+  color: white;
+  &:focus {
+    background-color: #182d46!important;
+    border: 1px solid rgba(89,128,172,.5)!important;
+    color: white;
+  }
+}
+
 .Current-User-Box {
   display: flex;
   align-items: center;
@@ -171,6 +201,7 @@ li {
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
+  padding-right: 30px;
   .nav-item {
     display: flex;
     align-items: center;
@@ -967,9 +998,56 @@ li {
   border-radius: 5px;
   position: relative;
 }
+.search-headline {
+  width: 100%;
+}
+.search-box {
+  width: 100%;
+}
+// search_form_forの自動生成
+.menu_search, .shop_search, .user_search {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.form-group {
+  width: 100%;
+  margin-bottom: 10px;
+  .search-label {
+    width: 100%;
+  }
+}
+.form-price {
+  width: 49%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  .price {
+    width: 20%;
+  }
+}
+.form-half {
+  width: 49%;
+}
 .form-control {
   resize: none;
-  margin-bottom: 10px;
+  font-size: 13px;
+  padding: 3px 5px;
+}
+.form-select {
+  font-size: 13px;
+  padding: 3px 5px;
+}
+.form-switch, .form-check-input {
+  padding-left: 0;
+  margin-left: 0!important;
+} 
+.found_headline {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .content-box {
   width: 100%;

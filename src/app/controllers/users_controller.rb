@@ -1,13 +1,14 @@
 class UsersController < ApplicationController
   before_action :set_user, only: %i[show edit update destroy]
   before_action :correct_user, only: %i[edit update destroy]
+  before_action :set_q, only: %i[index search]
 
   def index
     @users = User.page(params[:page]).per(10)
   end
 
   def show
-    @likes = Like.where(user_id: @user).page(params[:page]).per(9)
+    @likes = Like.where(user_id: @user).page(params[:page]).order(created_at: :desc).per(9)
     @user_shops = Shop.where(user_id: @user.id)
     @favorites = Favorite.where(user_id: @user.id)
   end
@@ -49,7 +50,16 @@ class UsersController < ApplicationController
     end
   end
 
+  def search
+    @results = @q.result
+    @results_pagination = @results.page(params[:page]).per(10)
+  end
+
   private
+
+  def set_q
+    @q = User.ransack(params[:q])
+  end
 
   def user_params
     # dateについて調べる QQQ

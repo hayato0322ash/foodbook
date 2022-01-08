@@ -1,6 +1,7 @@
 class MenusController < ApplicationController
   before_action :set_menu, only: %i[show edit update destroy]
   before_action :correct_menu, only: %i[edit update destroy]
+  before_action :set_q, only: %i[index search]
   def index
     @menus = Menu.page(params[:page]).per(9)
   end
@@ -38,7 +39,16 @@ class MenusController < ApplicationController
     redirect_to menus_url, danger: "メニュー「#{@menu.name}」を削除しました"
   end
 
+  def search
+    @results = @q.result
+    @results_pagination = @results.page(params[:page]).per(9)
+  end
+
   private
+
+  def set_q
+    @q = Menu.ransack params[:q]
+  end
 
   def menu_params
     params.require(:menu).permit(:name, :price, :evaluation, :shop_id, :image, :category_id, :limited)
