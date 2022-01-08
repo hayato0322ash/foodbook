@@ -1,0 +1,51 @@
+- provide :title, 'お店を探す'
+
+.search-box
+  h4.search-headline
+    | 店舗検索
+  = search_form_for @q, url: search_shops_path do |f|
+    .form-group.form-half
+        = f.label :prefecture_code_eq, "エリア(都道府県)"
+        = f.collection_select :prefecture_code_eq, JpPrefecture::Prefecture.all, :code, :name, { prompt: '選択してください' }, class: 'form-select'
+    .form-group.form-half
+      = f.label :category_id_eq, "どんなお店？"
+      = f.select :category_id_eq, {"レストラン": 5, "カフェ": 6, "ファストフード": 7, "バー": 8, "路面店": 9}, {include_hidden: false, include_blank: "選択してください"}, {class: "form-select"}
+    .form-group
+      = f.label :name_cont, "店舗名"
+      = f.search_field :name_cont, placeholder: "名前", class: "form-control"
+    
+    = f.submit "検索", class: "btn btn-primary"
+
+- if @results_pagination.present?
+  .found_headline
+    h2 
+      = "検索結果：#{@results.count}件"
+  = paginate @results_pagination
+  .shops-index
+    - @results_pagination.each do |shop|
+      = link_to shop_path(shop), class:"shop-index-item" do
+        .shop-index-img 
+          = image_tag shop.image.thumb800.url
+        .shop-index-info
+          li.shop-index-name
+            = "#{shop.name}"
+          -if shop.headline
+            li.shop-index-headline
+              = "-#{shop.headline}-"
+          li= "営業時間：#{shop.open_hour.strftime("%H:%M")} ~ #{shop.close_hour.strftime("%H:%M")}"
+          li= "店舗住所：〒#{shop.postcode} #{JpPrefecture::Prefecture.find(shop.prefecture_code).name}#{shop.address_city}#{shop.address_street} #{shop.address_building}"
+          li= "メニュー数：#{shop.menus.count}つ"
+          / - if shop.menus.where(evaluation: 3...).present? && shop.menus.where(evaluation: 3...).first.comments.first.present?
+          /   li
+          /     = link_to menu_path(shop.menus.where(evaluation: 3...).first), class: "shop-menus-comment-box" do
+          /       p.shop-menus-comment-content 人気メニューへのコメント
+          /       p= shop.menus.where(evaluation: 3...).first.comments.first.content
+          / - else 
+          /   li
+          /     | 人気メニューへのコメント
+          /     = "---"
+  = paginate @results_pagination
+-else
+  .found_headline
+    h2 
+      = "検索結果：#{@results.count}件"

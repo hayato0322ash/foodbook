@@ -1,0 +1,59 @@
+- provide :title, 'メニューを探す'
+
+.search-box
+  h4.search-headline
+    | メニュー検索
+  = search_form_for @q, url: search_menus_path do |f|
+    .form-group.form-half
+      = f.label :category_id_eq, "カテゴリ"
+      = f.select :category_id_eq, {"フード": 1, "ドリンク": 2, "デザート": 3}, {include_hidden: false, include_blank: "選択してください"}, {class: "form-select"}
+    .form-group.form-half
+      = f.label :limited_eq, "期間限定メニュー", class: "search-label"
+      = f.check_box :limited_eq, include_hidden: false, class: "form-check-input"
+    .form-group.form-half
+      = f.label :name_cont, "名前"
+      = f.search_field :name_cont, placeholder: "名前", class: "form-control"
+    .form-group.form-half
+      = f.label :shop_name_cont, "店舗名"
+      = f.search_field :shop_name_cont, placeholder: "店舗名", class: "form-control"
+    .form-group.form-half
+      = f.label :evaluation_eq, "評価"
+      = f.number_field :evaluation_eq, placeholder: "評価", class: "form-control"
+    .form-group.form-price
+      = f.label :price_gteq, "価格帯", class: "search-label"
+      = f.number_field :price_gteq, placeholder: "min (円)", class: "form-control price"
+      = f.label :price_lteq, "　〜　"
+      = f.number_field :price_lteq, placeholder: "max (円)", class: "form-control price"
+    
+    = f.submit "検索", class: "btn btn-primary"
+
+- if @results_pagination.present?
+  .found_headline
+    h2 
+      = "検索結果：#{@results.count}件"
+  = paginate @results_pagination
+  ul.menus-grid
+    - @results_pagination.each do |menu|  
+      ul.menu-grid-item
+        li 
+          = link_to menu_path(menu)
+            = image_tag menu.image.thumb200.url, class: "menu-grid-img" 
+        li.menu-grid-LFs
+          .menu-grid-heart-box
+            i.fas.fa-heart
+              = " #{menu.likes.count}"
+          .menu-grid-star-box
+            i.fas.fa-star
+              = " #{menu.favorites.count}"
+        - if menu.limited?
+          li.menu-grid-release-badge.menu-grid-LIMITED
+            | 期間限定!!
+        - elsif new_time(menu, 7)
+          li.menu-grid-release-badge.menu-grid-NEW
+            | NEW!
+        li.menu-grid-name
+          = link_to menu.name, menu_path(menu)
+-else
+  .found_headline
+    h2 
+      = "検索結果：#{@results.count}件"

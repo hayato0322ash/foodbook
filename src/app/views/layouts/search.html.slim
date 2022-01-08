@@ -1,0 +1,85 @@
+- if @shop_results_pagination.present?
+  .found_headline
+    h2 
+      = "検索結果：#{@results.count}件"
+  = paginate @shop_results_pagination
+  ul.menus-grid
+    - @shop_results_pagination.each do |menu|  
+      ul.menu-grid-item
+        li 
+          = link_to menu_path(menu)
+            = image_tag menu.image.thumb200.url, class: "menu-grid-img" 
+        li.menu-grid-LFs
+          .menu-grid-heart-box
+            i.fas.fa-heart
+              = " #{menu.likes.count}"
+          .menu-grid-star-box
+            i.fas.fa-star
+              = " #{menu.favorites.count}"
+        - if menu.limited?
+          li.menu-grid-release-badge.menu-grid-LIMITED
+            | 期間限定!!
+        - elsif new_time(menu, 7)
+          li.menu-grid-release-badge.menu-grid-NEW
+            | NEW!
+        li.menu-grid-name
+          = link_to menu.name, menu_path(menu)
+-else
+  .found_headline
+    h2 
+      = "検索結果：#{@results.count}件"
+
+
+- if @shop_results_pagination.present?
+  .found_headline
+    h2 
+      = "検索結果：#{@results.count}件"
+  = paginate @shop_results_pagination
+  .shops-index
+    - @shop_results_pagination.each do |shop|
+      = link_to shop_path(shop), class:"shop-index-item" do
+        .shop-index-img 
+          = image_tag shop.image.thumb800.url
+        .shop-index-info
+          li.shop-index-name
+            = "#{shop.name}"
+          -if shop.headline
+            li.shop-index-headline
+              = "-#{shop.headline}-"
+          li= "営業時間：#{shop.open_hour.strftime("%H:%M")} ~ #{shop.close_hour.strftime("%H:%M")}"
+          li= "店舗住所：〒#{shop.postcode} #{JpPrefecture::Prefecture.find(shop.prefecture_code).name}#{shop.address_city}#{shop.address_street} #{shop.address_building}"
+          li= "メニュー数：#{shop.menus.count}つ"
+          / - if shop.menus.where(evaluation: 3...).present? && shop.menus.where(evaluation: 3...).first.comments.first.present?
+          /   li
+          /     = link_to menu_path(shop.menus.where(evaluation: 3...).first), class: "shop-menus-comment-box" do
+          /       p.shop-menus-comment-content 人気メニューへのコメント
+          /       p= shop.menus.where(evaluation: 3...).first.comments.first.content
+          / - else 
+          /   li
+          /     | 人気メニューへのコメント
+          /     = "---"
+  = paginate @shop_results_pagination
+-else
+  .found_headline
+    h2 
+      = "検索結果：#{@results.count}件"
+
+- if @user_results_pagination.present?
+  .found_headline
+    h2 
+      = "検索結果：#{@results.count}件"
+  = paginate @user_results_pagination
+  - @user_results_pagination.each do |user|
+    = link_to user_path(user) do 
+      ul.user_data  
+        li= image_tag user.image.thumb50.url, class:"current-user-icon"  
+        -if user.admin
+          li.index-admin-badge
+            | 管理者
+        li= user.name
+        
+  = paginate @user_results_pagination
+-else
+  .found_headline
+    h2 
+      = "検索結果：#{@results.count}件"

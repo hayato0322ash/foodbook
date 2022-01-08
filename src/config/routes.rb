@@ -4,10 +4,20 @@ Rails.application.routes.draw do
   get 'likes/destroy'
   root to: 'sessions#new'
   resources :users do
+    collection do
+      get 'search'
+    end
     resources :favorites, only: [:index]
   end
-  resources :shops
+  resources :shops do
+    collection do
+      get 'search'
+    end
+  end
   resources :menus do
+    collection do
+      get 'search'
+    end
     resources :comments, only: %i[create destroy]
     resources :likes, only: %i[create destroy]
     resources :favorites, only: %i[create destroy]
