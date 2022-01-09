@@ -90,39 +90,38 @@ ul.shop-show-box
           h5#shopModalLabel.modal-title 
             | 「#{@shop.name}」を編集する
           button.btn-close aria-label="Close" data-bs-dismiss="modal" type="button" 
-        .modal-body
+        .modal-body.show-shop-modal-body
           = form_with model: @shop, local: true do |f|
-            .form-group 
-              = f.label :image do
-                .change-img
-                  i.fas.fa-camera.change-menu-camera
-                  = image_tag @shop.image.url
-                  = f.file_field :image, style: 'display:none'
             .form-group 
               = f.label :name, '店舗名'
               = f.text_field :name, class: 'form-control'
-            .form-group
-              = f.label :open_hour, '開店時間'
-              = f.time_select :open_hour, class: 'form-select'
-              | 〜
-              = f.label :close_hour, '閉店時間'
-              = f.time_select :close_hour, class: 'form-select'
-            .form-group 
-              = f.label :headline, "見出し文"
-              = f.text_field :headline, class: "form-control"
-            .form-group 
+            .form-group.form-half 
               / 追記
               = f.label :postcode, '郵便番号'
+              span#jpostal-btn 住所検索
               = f.text_field :postcode, autocomplete: 'postcode', class: 'form-control'
+            .form-group.form-half 
               = f.label :prefecture_name, '都道府県'
               / 47都道府県をプルダウンメニューで表示
-              = f.collection_select :prefecture_code, JpPrefecture::Prefecture.all, :code, :name, { prompt: '選択してください' }, class: 'form-control'
+              = f.collection_select :prefecture_code, JpPrefecture::Prefecture.all, :code, :name, { prompt: '選択してください' }, class: 'form-select'
+            .form-group.form-half 
               = f.label :address_city, '市区町村'
               = f.text_field :address_city, autocomplete: 'address_city', class: 'form-control'
+            .form-group.form-half 
               = f.label :address_street, '番地'
-              = f.text_field :address_street, autocomplete: 'address_street', class: 'form-control'
-              = f.label :address_building, '建物'
+              = f.text_field :address_street, autocomplete: 'address_street', class: 'form-control '
+            .form-group.form-half 
+              = f.label :address_building, '建物名'
               = f.text_field :address_building, autocomplete: 'address_building', class: 'form-control'
+            .form-group
+              = f.label :open_hour, '開店'
+              = f.time_select :open_hour, class: 'form-control'
+              | 〜
+              = f.label :close_hour, '閉店'
+              = f.time_select :close_hour, class: 'form-control'
+            .form-group 
+              = f.label :image, "店舗画像"
+              = f.file_field :image 
             .btn-box
               = link_to  "店舗を削除する", shop_path, method: "delete", class:"btn btn-danger", data: {confirm: "本当に「#{@shop.name}」を削除しますか？"}
               = f.submit '編集する', class: 'btn btn-primary', data: {confirm: "「#{@shop.name}」を編集しますか？"}
